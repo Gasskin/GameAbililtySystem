@@ -2,28 +2,27 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameAbilitySystem
+namespace GameplayAbilitySystem
 {
+    /// <summary>
+    /// 属性系统
+    /// </summary>
     public class AttributeSystemComponent : MonoBehaviour
     {
     #region 属性
-        [SerializeField]
-        [LabelText("属性事件")]
-        private List<AbstractAttributeEventHandler> attributeSystemEvents;
+        [SerializeField] [LabelText("属性事件")] 
+        private List<BaseAttributeEventHandler> attributeSystemEvents;
 
-        [SerializeField]
-        [LabelText("属性")]
+        [SerializeField] [LabelText("属性")] 
         private List<GameAttribute> attributes;
 
-        [SerializeField]
-        [LabelText("属性值")]
-        // [ReadOnly]
-        private List<AttributeValue> attributeValues;
-        
+        [SerializeField] [LabelText("属性值")]
+        private List<GameAttributeValue> attributeValues;
+
         private bool isAttributeDirty = false;
-        public readonly Dictionary<GameAttribute, int> attributeIndexCache  = new ();
-        
-        private List<AttributeValue> preAttributeValues = new List<AttributeValue>();
+        public readonly Dictionary<GameAttribute, int> attributeCache = new();
+
+        private readonly List<GameAttributeValue> preAttributeValues = new();
     #endregion
 
 
@@ -39,14 +38,7 @@ namespace GameAbilitySystem
         {
             UpdateAttributeCurrentValues();
         }
-    #endregion
 
-    #region 接口方法
-        public void MarkAttributeDirty()
-        {
-            isAttributeDirty = true;
-        }
-        
         public void UpdateAttributeCurrentValues()
         {
             preAttributeValues.Clear();
@@ -64,38 +56,146 @@ namespace GameAbilitySystem
         }
     #endregion
 
+    #region 接口方法
+        /// <summary>
+        /// 标记属性为脏
+        /// </summary>
+        public void MarkAttributeDirty()
+        {
+            isAttributeDirty = true;
+        }
+
+        /// <summary>
+        /// 获取一个属性值
+        /// </summary>
+        /// <param name="attr"></param>
+        /// <param name="attrValue"></param>
+        /// <returns></returns>
+        public bool TryGetAttributeValue(GameAttribute attr, out GameAttributeValue attrValue)
+        {
+            var attributeCache = GetAttributeCache();
+            if (attributeCache.TryGetValue(attr, out var index))
+            {
+                attrValue = attributeValues[index];
+                return true;
+            }
+
+            attrValue = new GameAttributeValue();
+            return false;
+        }
+
+        /// <summary>
+        /// 设置某个属性的基础值
+        /// </summary>
+        /// <param name="attr"></param>
+        /// <param name="baseValue"></param>
+        public void SetAttributeValue(GameAttribute attr, float baseValue)
+        {
+            var cache = GetAttributeCache();
+            if (cache.TryGetValue(attr, out var index))
+            {
+                var attrValue = attributeValues[index];
+                attrValue.baseValue = baseValue;
+                attributeValues[index] = attrValue;
+            }
+        }
+
+        /// <summary>
+        /// 更新某个属性的修饰器
+        /// </summary>
+        /// <param name="attr"></param>
+        /// <param name="modifier"></param>
+        public void UpdateAttributeModifier(GameAttribute attr, GameAttributeModifier modifier)
+        {
+            var cache = GetAttributeCache();
+            if (cache.TryGetValue(attr, out var index))
+            {
+                var attrValue = attributeValues[index];
+                attrValue.modifier = modifier;
+                attributeValues[index] = attrValue;
+            }
+        }
+        
+        /// <summary>
+        /// 添加属性
+        /// </summary>
+        /// <param name="attrs"></param>
+        public void AddAttributes(params GameAttribute[] attrs)
+        {
+            var cache = GetAttributeCache();
+            for (int i = 0; i < attrs.Length; i++)
+            {
+                if (cache.ContainsKey(attrs[i]))
+                {
+                    continue;
+                }
+                attributes.Add(attrs[i]);
+                // MarkAttributeDirty();
+                // cache.Add(attrs[i], attributes.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// 删除一个属性
+        /// </summary>
+        /// <param name="attrs"></param>
+        public void RemoveAttributes(params GameAttribute[] attrs)
+        {
+            for (int i = 0; i < attrs.Length; i++)
+            {
+                attributes.Remove(attrs[i]);
+            }
+            // GetAttributeCache();
+        }
+        
+        /// <summary>
+        /// 重置所有属性的修饰器
+        /// </summary>
+        public void ResetAttributeModifiers()
+        {
+            for (var i = 0; i < attributeValues.Count; i++)
+            {
+                var attributeValue = attributeValues[i];
+                attributeValue.modifier = default;
+                attributeValues[i] = attributeValue;
+            }
+        }
+    #endregion
+
     #region 工具方法
         private void InitialiseAttributeValues()
         {
-            attributeValues = new List<AttributeValue>();
+            attributeValues = new List<GameAttributeValue>();
             for (var i = 0; i < attributes.Count; i++)
             {
-                this.attributeValues.Add(new AttributeValue()
+                attributeValues.Add(new GameAttributeValue()
                     {
-                        attribute = this.attributes[i],
-                        modifier = new AttributeModifier()
+                        attribute = attributes[i],
+                        modifier = new GameAttributeModifier()
                         {
-                            add = 1f,
-                            multiply = 1f,
+                            add = 0f,
+                            multiply = 0f,
                             overwrite = 0f
                         }
                     }
                 );
             }
         }
-        
+
         private Dictionary<GameAttribute, int> GetAttributeCache()
         {
             if (isAttributeDirty)
             {
-                attributeIndexCache.Clear();
+                attributeCache.Clear();
                 for (var i = 0; i < attributeValues.Count; i++)
                 {
-                    attributeIndexCache.Add(attributeValues[i].attribute, i);
+                    attributeCache.Add(attributeValues[i].attribute, i);
                 }
-                this.isAttributeDirty = false;
+
+                isAttributeDirty = false;
             }
-            return attributeIndexCache;
+
+            return attributeCache;
         }
     #endregion
     }

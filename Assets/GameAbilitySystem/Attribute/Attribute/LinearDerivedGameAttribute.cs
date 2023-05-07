@@ -3,9 +3,12 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameAbilitySystem
+namespace GameplayAbilitySystem
 {
-    [CreateAssetMenu(menuName = "GameAbilitySystem/Linear Derived Attribute")]
+    /// <summary>
+    /// 衍生属性，比如角色的蓝量是基于他的智力的，那么蓝量就是一个衍生属性，需要有他的源属性，和计算规则
+    /// </summary>
+    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Linear Derived Attribute")]
     public class LinearDerivedGameAttribute : GameAttribute
     {
         [LabelText("目标属性")]
@@ -18,22 +21,22 @@ namespace GameAbilitySystem
         [LabelWidth(50)]
         [SerializeField] private float offset;
 
-        public override AttributeValue CalculateCurrentAttributeValue(AttributeValue attributeValue, List<AttributeValue> allAttributeValues)
+        public override GameAttributeValue CalculateCurrentAttributeValue(GameAttributeValue gameAttributeValue, List<GameAttributeValue> allAttributeValues)
         {
             // 找到目标属性
             var baseAttributeValue = allAttributeValues.Find(x => x.attribute == Attribute);
 
             // 基础值
-            attributeValue.baseValue = (baseAttributeValue.currentValue * gradient) + offset;
+            gameAttributeValue.baseValue = (baseAttributeValue.currentValue * gradient) + offset;
 
             // 当前值
-            attributeValue.currentValue = (attributeValue.baseValue + attributeValue.modifier.add) * (attributeValue.modifier.multiply + 1);
+            gameAttributeValue.currentValue = (gameAttributeValue.baseValue + gameAttributeValue.modifier.add) * (gameAttributeValue.modifier.multiply + 1);
 
-            if (attributeValue.modifier.overwrite != 0)
+            if (gameAttributeValue.modifier.overwrite != 0)
             {
-                attributeValue.currentValue = attributeValue.modifier.overwrite;
+                gameAttributeValue.currentValue = gameAttributeValue.modifier.overwrite;
             }
-            return attributeValue;
+            return gameAttributeValue;
         }
 
 #if UNITY_EDITOR

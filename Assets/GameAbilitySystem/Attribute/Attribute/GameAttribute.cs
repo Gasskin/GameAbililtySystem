@@ -3,26 +3,29 @@ using System.IO;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameAbilitySystem
+namespace GameplayAbilitySystem
 {
-    [CreateAssetMenu(menuName = "GameAbilitySystem/Attribute")]
+    /// <summary>
+    /// 基础属性，不包含任何数据，仅仅是一个标记
+    /// </summary>
+    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Attribute")]
     public class GameAttribute : ScriptableObject
     {
         [LabelText("属性名"), DelayedProperty] [OnValueChanged("OnNameChanged")] [LabelWidth(50)]
         public string name;
 
-        public virtual AttributeValue CalculateCurrentAttributeValue(AttributeValue attributeValue,
-            List<AttributeValue> allAttributeValues)
+        public virtual GameAttributeValue CalculateCurrentAttributeValue(GameAttributeValue gameAttributeValue,
+            List<GameAttributeValue> allAttributeValues)
         {
-            attributeValue.currentValue = (attributeValue.baseValue + attributeValue.modifier.add) *
-                                          (attributeValue.modifier.multiply + 1);
+            gameAttributeValue.currentValue = (gameAttributeValue.baseValue + gameAttributeValue.modifier.add) *
+                                          (gameAttributeValue.modifier.multiply + 1);
 
-            if (attributeValue.modifier.overwrite != 0)
+            if (gameAttributeValue.modifier.overwrite != 0)
             {
-                attributeValue.currentValue = attributeValue.modifier.overwrite;
+                gameAttributeValue.currentValue = gameAttributeValue.modifier.overwrite;
             }
 
-            return attributeValue;
+            return gameAttributeValue;
         }
 
 #if UNITY_EDITOR
