@@ -6,6 +6,8 @@ namespace GameplayAbilitySystem
     [CreateAssetMenu(menuName = "GameplayAbilitySystem/Gameplay Effect")]
     public class GameEffect : ScriptableObject
     {
+        public GameplayEffectDefinitionContainer gameplayEffect;
+        
         [LabelText("标签"),LabelWidth(50)]
         public GameplayEffectTags gameplayEffectTags;
         

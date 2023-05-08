@@ -17,6 +17,21 @@ namespace GameplayAbilitySystem
         public AbilitySystemComponent Target { get; private set; }
         // 捕获的源属性
         public GameAttributeValue? sourceCapturedAttribute = null;
+
+        public GameEffect gameEffect;
+        
+        public float DurationRemaining { get; private set; }
+        public float TotalDuration { get; private set; }
     #endregion
+        
+        public static GameplayEffectSpec CreateNew(GameEffect gameEffect, AbilitySystemComponent source, float level = 1)
+        {
+            return new GameplayEffectSpec(gameEffect, source, level);
+        }
+
+        private GameplayEffectSpec(GameEffect gameEffect, AbilitySystemComponent source, float level = 1)
+        {
+            
+        }
     }
 }
