@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
-    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Attribute EventHandler/Log Attribute Change")]
+    [CreateAssetMenu(menuName = "GameAbilitySystem/Attribute EventHandler/Log Attribute Change")]
     public class LogAttributeChangeEventHandler : BaseAttributeEventHandler
     {
         [SerializeField]

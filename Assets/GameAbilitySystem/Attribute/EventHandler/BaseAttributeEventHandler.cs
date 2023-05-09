@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
     /// <summary>
     /// 属性事件处理器，会在属性改变前被调用，可以继承这个类实现自己的属性事件处理器

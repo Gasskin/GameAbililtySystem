@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
     /// <summary>
     /// 属性的数值，有属性标记+数值组成+修改器

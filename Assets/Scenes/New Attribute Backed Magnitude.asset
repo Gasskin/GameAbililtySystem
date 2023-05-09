@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929c7a9a95e749e1826b07ca2b9182cc, type: 3}
+  m_Name: New Attribute Backed Magnitude
+  m_EditorClassIdentifier: 
+  capturedAttribute: {fileID: 11400000, guid: ae4e5d0a72a01b7468c65fd76016502f, type: 2}
+  captureAttributeFrom: 0
+  captureAttributeWhen: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

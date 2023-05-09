@@ -3,12 +3,12 @@ using System.IO;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
     /// <summary>
     /// 基础属性，不包含任何数据，仅仅是一个标记
     /// </summary>
-    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Attribute")]
+    [CreateAssetMenu(menuName = "GameAbilitySystem/Attribute")]
     public class GameAttribute : ScriptableObject
     {
         [LabelText("属性名"), DelayedProperty] [OnValueChanged("OnNameChanged")] [LabelWidth(50)]

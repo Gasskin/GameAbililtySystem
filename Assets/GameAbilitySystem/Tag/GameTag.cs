@@ -1,12 +1,12 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
     /// <summary>
     /// 游戏标签，通过父子标签实现的一种树状结构，仅标记，没有逻辑也没有数据
     /// </summary>
-    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Tag")]
+    [CreateAssetMenu(menuName = "GameAbilitySystem/Tag")]
     public class GameTag : ScriptableObject
     {
         [SerializeField]

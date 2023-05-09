@@ -3,12 +3,12 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameplayAbilitySystem
+namespace GameAbilitySystem
 {
     /// <summary>
     /// 衍生属性，比如角色的蓝量是基于他的智力的，那么蓝量就是一个衍生属性，需要有他的源属性，和计算规则
     /// </summary>
-    [CreateAssetMenu(menuName = "GameplayAbilitySystem/Linear Derived Attribute")]
+    [CreateAssetMenu(menuName = "GameAbilitySystem/Linear Derived Attribute")]
     public class LinearDerivedGameAttribute : GameAttribute
     {
         [LabelText("目标属性")]
