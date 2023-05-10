@@ -12,7 +12,7 @@ namespace GameAbilitySystem
         [Title("说明")]
         [InfoBox("最基础的规格器\nCurve的采样目标是所属GES的Level")]
         [SerializeField]
-        [HideLabel]
+        [LabelText("采样曲线"), LabelWidth(50)]
         private AnimationCurve animationCurve;
         
         public override void Initialise(GameEffectSpec spec)

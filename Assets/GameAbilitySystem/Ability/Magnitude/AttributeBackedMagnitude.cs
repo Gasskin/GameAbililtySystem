@@ -36,7 +36,7 @@ namespace GameAbilitySystem
         private ECaptureAttributeWhen captureAttributeWhen;
 
         [SerializeField]
-        [HideLabel]
+        [LabelText("采样曲线"), LabelWidth(50)]
         private AnimationCurve animationCurve;
 
         public override void Initialise(GameEffectSpec spec)
