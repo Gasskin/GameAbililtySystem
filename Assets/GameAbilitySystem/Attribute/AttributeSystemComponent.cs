@@ -39,7 +39,7 @@ namespace GameAbilitySystem
             UpdateAttributeCurrentValues();
         }
 
-        public void UpdateAttributeCurrentValues()
+        private void UpdateAttributeCurrentValues()
         {
             preAttributeValues.Clear();
             for (var i = 0; i < attributeValues.Count; i++)
@@ -89,7 +89,7 @@ namespace GameAbilitySystem
         /// </summary>
         /// <param name="attr"></param>
         /// <param name="baseValue"></param>
-        public void SetAttributeValue(GameAttribute attr, float baseValue)
+        public void SetAttributeBaseValue(GameAttribute attr, float baseValue)
         {
             var cache = GetAttributeCache();
             if (cache.TryGetValue(attr, out var index))

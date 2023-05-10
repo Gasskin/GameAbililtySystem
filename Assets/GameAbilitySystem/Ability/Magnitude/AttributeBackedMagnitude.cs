@@ -44,14 +44,14 @@ namespace GameAbilitySystem
             switch (captureAttributeFrom)
             {
                 case ECaptureAttributeFrom.Source:
-                    spec.Source.AttributeSystemComponent.TryGetAttributeValue(capturedAttribute,
+                    spec.source.attributeSystemComponent.TryGetAttributeValue(capturedAttribute,
                         out var capturedAttributeValue);
-                    spec.SourceCapturedAttributeValue = capturedAttributeValue;
+                    spec.sourceCapturedAttributeValue = capturedAttributeValue;
                     break;
                 case ECaptureAttributeFrom.Target:
-                    spec.Target.AttributeSystemComponent.TryGetAttributeValue(capturedAttribute,
+                    spec.target.attributeSystemComponent.TryGetAttributeValue(capturedAttribute,
                         out capturedAttributeValue);
-                    spec.TargetCapturedAttributeValue = capturedAttributeValue;
+                    spec.targetCapturedAttributeValue = capturedAttributeValue;
                     break;
             }
         }
@@ -68,20 +68,20 @@ namespace GameAbilitySystem
                 switch (captureAttributeFrom)
                 {
                     case ECaptureAttributeFrom.Source:
-                        return spec.SourceCapturedAttributeValue;
+                        return spec.sourceCapturedAttributeValue;
                     case ECaptureAttributeFrom.Target:
-                        return spec.TargetCapturedAttributeValue;
+                        return spec.targetCapturedAttributeValue;
                 }
             }
 
             switch (captureAttributeFrom)
             {
                 case ECaptureAttributeFrom.Source:
-                    spec.Source.AttributeSystemComponent.TryGetAttributeValue(capturedAttribute,
+                    spec.source.attributeSystemComponent.TryGetAttributeValue(capturedAttribute,
                         out var sourceAttributeValue);
                     return sourceAttributeValue;
                 case ECaptureAttributeFrom.Target:
-                    spec.Target.AttributeSystemComponent.TryGetAttributeValue(capturedAttribute,
+                    spec.target.attributeSystemComponent.TryGetAttributeValue(capturedAttribute,
                         out var targetAttributeValue);
                     return targetAttributeValue;
             }

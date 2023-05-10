@@ -3,7 +3,7 @@ using GameAbilitySystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "GameAbilitySystem/Attribute EventHandler/Clamp Attribute")]
+[CreateAssetMenu(menuName = "GASExample/Attribute EventHandler/Clamp Attribute")]
 public class ClampAttributeEventHandler : BaseAttributeEventHandler
 {
     [SerializeField]

@@ -21,7 +21,7 @@ namespace GameAbilitySystem
 
         public override float CalculateMagnitude(GameEffectSpec spec)
         {
-            return animationCurve.Evaluate(spec.Level);
+            return animationCurve.Evaluate(spec.level);
         }
     }
 }

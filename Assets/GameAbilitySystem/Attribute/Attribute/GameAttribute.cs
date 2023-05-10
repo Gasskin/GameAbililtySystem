@@ -14,11 +14,9 @@ namespace GameAbilitySystem
         [LabelText("属性名"), DelayedProperty] [OnValueChanged("OnNameChanged")] [LabelWidth(50)]
         public string name;
 
-        public virtual GameAttributeValue CalculateCurrentAttributeValue(GameAttributeValue gameAttributeValue,
-            List<GameAttributeValue> allAttributeValues)
+        public virtual GameAttributeValue CalculateCurrentAttributeValue(GameAttributeValue gameAttributeValue, List<GameAttributeValue> allAttributeValues)
         {
-            gameAttributeValue.currentValue = (gameAttributeValue.baseValue + gameAttributeValue.modifier.add) *
-                                          (gameAttributeValue.modifier.multiply + 1);
+            gameAttributeValue.currentValue = (gameAttributeValue.baseValue + gameAttributeValue.modifier.add) * (gameAttributeValue.modifier.multiply + 1);
 
             if (gameAttributeValue.modifier.overwrite != 0)
             {

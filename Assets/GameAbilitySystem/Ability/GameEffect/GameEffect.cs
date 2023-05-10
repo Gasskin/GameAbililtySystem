@@ -60,11 +60,11 @@ namespace GameAbilitySystem
         public float period;
 
         [FoldoutGroup("周期")]
-        [LabelText("等待执行")]
+        [LabelText("立刻执行")]
         [LabelWidth(50)]
-        [Tooltip("第一次执行是否需要等待一个周期")]
+        [Tooltip("第一次执行是立刻执行，还是等待一个周期")]
         [HideIf("@this.durationPolicy == EDurationPolicy.Instant")]
-        public bool executeOnApplication;
+        public bool executeImmediate;
 
         [FoldoutGroup("周期")]
         [LabelText("时间规格")]
