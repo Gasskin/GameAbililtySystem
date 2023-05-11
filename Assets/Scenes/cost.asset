@@ -26,15 +26,11 @@ MonoBehaviour:
     ignoreTags: []
   durationPolicy: 2
   period: 1
-  executeOnApplication: 0
+  executeImmediate: 0
   durationMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
   durationMultiplier: 0
   modifiers:
-  - attribute: {fileID: 11400000, guid: ae4e5d0a72a01b7468c65fd76016502f, type: 2}
+  - attribute: {fileID: 11400000, guid: d12eeaba8e877944dbeb503ab7a68c8a, type: 2}
     modifierOperator: 0
-    modifierMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
-    multiplier: 0
-  - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
-    modifierOperator: 1
-    modifierMagnitude: {fileID: 11400000, guid: 84464fdec10b04b48bb103f969ef52a0, type: 2}
-    multiplier: 0
+    modifierMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
+    multiplier: -20

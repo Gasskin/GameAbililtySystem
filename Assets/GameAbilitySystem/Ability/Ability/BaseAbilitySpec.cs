@@ -44,10 +44,12 @@ namespace GameAbilitySystem
 
         public virtual async UniTask PreActivate()
         {
+            await UniTask.CompletedTask;
         }
 
         public virtual async UniTask ActivateAbility()
         {
+            await UniTask.CompletedTask;
         }
 
         public virtual void EndAbility()
