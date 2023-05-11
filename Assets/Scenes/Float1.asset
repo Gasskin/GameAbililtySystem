@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b36c3853f4d474084a57042763fd96d, type: 3}
-  m_Name: New Simple Float Magnitude
+  m_Name: Float1
   m_EditorClassIdentifier: 
   animationCurve:
     serializedVersion: 2

@@ -44,19 +44,17 @@ namespace GameAbilitySystem
 
         public virtual async UniTask PreActivate()
         {
-            await UniTask.Yield();
         }
 
         public virtual async UniTask ActivateAbility()
         {
-            await UniTask.Yield();
         }
-        
+
         public virtual void EndAbility()
         {
             isActive = false;
         }
-        
+
         private bool CheckCost()
         {
             if (ability.cost == null)
@@ -133,6 +131,9 @@ namespace GameAbilitySystem
             if (asc == null)
                 return false;
 
+            if (tags == null)
+                return true;
+
             foreach (var tag in tags)
             {
                 var flag = false;
@@ -148,7 +149,7 @@ namespace GameAbilitySystem
                 if (!flag)
                     return false;
             }
-            
+
             return true;
         }
 
@@ -156,6 +157,9 @@ namespace GameAbilitySystem
         {
             if (asc == null)
                 return false;
+
+            if (tags == null)
+                return true;
 
             foreach (var tag in tags)
             {
@@ -172,6 +176,7 @@ namespace GameAbilitySystem
                 if (!flag)
                     return false;
             }
+
             return true;
         }
     }

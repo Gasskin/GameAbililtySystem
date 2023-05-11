@@ -24,13 +24,13 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 2
-  period: 4
-  executeImmediate: 1
+  durationPolicy: 1
+  period: 1
+  executeImmediate: 0
   durationMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
-  durationMultiplier: 1
+  durationMultiplier: 10
   modifiers:
   - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
     modifierOperator: 0
-    modifierMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
+    modifierMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
     multiplier: 1

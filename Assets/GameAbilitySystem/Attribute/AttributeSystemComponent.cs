@@ -111,7 +111,7 @@ namespace GameAbilitySystem
             if (cache.TryGetValue(attr, out var index))
             {
                 var attrValue = attributeValues[index];
-                attrValue.modifier = modifier;
+                attrValue.modifier = attrValue.modifier.Combine(modifier);
                 attributeValues[index] = attrValue;
             }
         }

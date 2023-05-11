@@ -13,14 +13,14 @@ namespace GameAbilitySystem.Ability
     public class GameEffectContainer
     {
         public GameEffectSpec spec;
-        public ModifierContainer[] modifiers;
+        public List<ModifierContainer> modifiers;
     }
 
     public class AbilitySystemComponent : MonoBehaviour
     {
         public AttributeSystemComponent attributeSystemComponent;
 
-        public List<GameEffectContainer> appliedGameEffects = new();
+        public readonly List<GameEffectContainer> appliedGameEffects = new();
         public List<BaseAbilitySpec> grantedAbilities = new();
 
         public float level;
@@ -60,7 +60,35 @@ namespace GameAbilitySystem.Ability
                 appliedGameEffect.spec.TickPeriod(Time.deltaTime, out var execute);
                 if (execute)
                 {
-                    ApplyInstantGameEffect(appliedGameEffect.spec);
+                    // ApplyInstantGameEffect(appliedGameEffect.spec);
+                    // var modifierContainers = new List<ModifierContainer>();
+                    foreach (var modifier in appliedGameEffect.spec.gameEffect.modifiers)
+                    {
+                        var magnitude = modifier.modifierMagnitude.CalculateMagnitude(appliedGameEffect.spec) * modifier.multiplier;
+                        var attributeModifier = new GameAttributeModifier();
+                        switch (modifier.modifierOperator)
+                        {
+                            case EModifierOperator.Add:
+                                attributeModifier.add = magnitude;
+                                break;
+                            case EModifierOperator.Multiply:
+                                attributeModifier.multiply = magnitude;
+                                break;
+                            case EModifierOperator.Override:
+                                attributeModifier.overwrite = magnitude;
+                                break;
+                        }
+                        // modifierContainers.Add(new ModifierContainer
+                        // {
+                        //     attribute = modifier.attribute,
+                        //     modifier = attributeModifier
+                        // });
+                        appliedGameEffect.modifiers.Add(new ModifierContainer()
+                        {
+                            attribute = modifier.attribute,
+                            modifier = attributeModifier
+                        });
+                    }
                 }
             }
         }
@@ -117,33 +145,34 @@ namespace GameAbilitySystem.Ability
 
         private void ApplyDurationGameEffect(GameEffectSpec spec)
         {
-            var modifierContainers = new List<ModifierContainer>();
-            foreach (var modifier in spec.gameEffect.modifiers)
-            {
-                var magnitude = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
-                var attributeModifier = new GameAttributeModifier();
-                switch (modifier.modifierOperator)
-                {
-                    case EModifierOperator.Add:
-                        attributeModifier.add = magnitude;
-                        break;
-                    case EModifierOperator.Multiply:
-                        attributeModifier.multiply = magnitude;
-                        break;
-                    case EModifierOperator.Override:
-                        attributeModifier.overwrite = magnitude;
-                        break;
-                }
-                modifierContainers.Add(new ModifierContainer
-                {
-                    attribute = modifier.attribute,
-                    modifier = attributeModifier
-                });
-            }
+            // var modifierContainers = new List<ModifierContainer>();
+            // foreach (var modifier in spec.gameEffect.modifiers)
+            // {
+            //     var magnitude = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
+            //     var attributeModifier = new GameAttributeModifier();
+            //     switch (modifier.modifierOperator)
+            //     {
+            //         case EModifierOperator.Add:
+            //             attributeModifier.add = magnitude;
+            //             break;
+            //         case EModifierOperator.Multiply:
+            //             attributeModifier.multiply = magnitude;
+            //             break;
+            //         case EModifierOperator.Override:
+            //             attributeModifier.overwrite = magnitude;
+            //             break;
+            //     }
+            //     modifierContainers.Add(new ModifierContainer
+            //     {
+            //         attribute = modifier.attribute,
+            //         modifier = attributeModifier
+            //     });
+            // }
             appliedGameEffects.Add(new GameEffectContainer
             {
                 spec = spec,
-                modifiers = modifierContainers.ToArray()
+                // modifiers = modifierContainers.ToArray()
+                modifiers = new List<ModifierContainer>()
             });
         }
 
