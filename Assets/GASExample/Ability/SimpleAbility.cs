@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Animancer;
 using Cysharp.Threading.Tasks;
 using GameAbilitySystem;
 using GameAbilitySystem.Ability;
@@ -13,6 +14,10 @@ namespace GASExample
     {
         [LabelText("游戏效果")]
         public GameEffect gameEffect;
+        [LabelText("游戏动作")]
+        public ClipTransition animationClip;
+        [LabelText("特效")]
+        public GameObject vfx;
         
         public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner)
         {
@@ -23,21 +28,24 @@ namespace GASExample
 
         public class SimpleAbilitySpec : BaseAbilitySpec
         {
+            private PlayerController playerController;
+            
             public SimpleAbilitySpec(BaseAbility ability, AbilitySystemComponent owner) : base(ability, owner)
             {
+                playerController = owner.GetComponent<PlayerController>();
             }
 
             protected override bool CheckGameTags()
             {
-                return HasAllTags(owner, ability.ownerTags.requireTags)
-                       && HasNoneTags(owner, ability.ownerTags.ignoreTags)
-                       && HasAllTags(owner, ability.sourceTags.requireTags)
-                       && HasNoneTags(owner, ability.sourceTags.ignoreTags)
-                       && HasAllTags(owner, ability.targetTags.requireTags)
-                       && HasNoneTags(owner, ability.targetTags.ignoreTags);
+                return owner.HasAllTags(ability.ownerTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.ownerTags.ignoreTags)
+                       && owner.HasAllTags( ability.sourceTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.sourceTags.ignoreTags)
+                       && owner.HasAllTags( ability.targetTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.targetTags.ignoreTags);
             }
 
-            public override UniTask ActivateAbility()
+            public override async UniTask ActivateAbility()
             {
                 var simpleAbility = ability as SimpleAbility;
                 if (simpleAbility)
@@ -59,9 +67,12 @@ namespace GASExample
                         var effectSpec = owner.MakeGameEffectSpec(simpleAbility.gameEffect, level);
                         owner.ApplyGameEffectSpecToSelf(effectSpec);
                     }
+
+                    playerController.PlayAnimation(simpleAbility.animationClip);
+                    var vfx = Instantiate(simpleAbility.vfx);
+                    vfx.transform.SetParent(owner.transform, false);
+                    Destroy(vfx.gameObject,0.2f);
                 }
-                
-                return UniTask.CompletedTask;
             }
         }
     }

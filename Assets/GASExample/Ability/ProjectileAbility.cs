@@ -34,12 +34,12 @@ namespace GASExample
 
             protected override bool CheckGameTags()
             {
-                return HasAllTags(owner, ability.ownerTags.requireTags)
-                       && HasNoneTags(owner, ability.ownerTags.ignoreTags)
-                       && HasAllTags(owner, ability.sourceTags.requireTags)
-                       && HasNoneTags(owner, ability.sourceTags.ignoreTags)
-                       && HasAllTags(owner, ability.targetTags.requireTags)
-                       && HasNoneTags(owner, ability.targetTags.ignoreTags);
+                return owner.HasAllTags(ability.ownerTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.ownerTags.ignoreTags)
+                       && owner.HasAllTags( ability.sourceTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.sourceTags.ignoreTags)
+                       && owner.HasAllTags( ability.targetTags.requireTags)
+                       && !owner.HasIgnoreTags( ability.targetTags.ignoreTags);
             }
 
             public override async UniTask ActivateAbility()

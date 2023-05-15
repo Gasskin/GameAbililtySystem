@@ -22,6 +22,9 @@ namespace GameAbilitySystem
         /// <returns></returns>
         public bool IsDescendantOf(GameTag other, int depth = 8)
         {
+            if (this == other)
+                return true;
+            
             int i = 0;
             var tag = parent;
             while (depth > i++)

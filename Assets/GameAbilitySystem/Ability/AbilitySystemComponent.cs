@@ -58,6 +58,9 @@ namespace GameAbilitySystem.Ability
                     continue;
                 appliedGameEffect.spec.UpdateRemainingDuration(Time.deltaTime);
                 appliedGameEffect.spec.TickPeriod(Time.deltaTime, out var execute);
+
+                var onGoingTags = appliedGameEffect.spec.gameEffect.onGoingTagRequirements;
+                
                 if (execute)
                 {
                     // ApplyInstantGameEffect(appliedGameEffect.spec);
@@ -103,9 +106,9 @@ namespace GameAbilitySystem.Ability
         {
             if (spec == null)
                 return;
-            if (!CheckTagRequirements(spec))
+            if (!HasAllTags(spec.gameEffect.applicationTagRequirements.requireTags) 
+                || HasIgnoreTags(spec.gameEffect.applicationTagRequirements.ignoreTags))
                 return;
-
             switch (spec.gameEffect.durationPolicy)
             {
                 case EDurationPolicy.Infinite:
@@ -176,22 +179,49 @@ namespace GameAbilitySystem.Ability
             });
         }
 
-        private bool CheckTagRequirements(GameEffectSpec spec)
+
+        public bool HasAllTags(GameTag[] tags)
         {
-            var appliedTags = new List<GameTag>();
-
-            foreach (var appliedGameEffect in appliedGameEffects)
-                appliedTags.AddRange(appliedGameEffect.spec.gameEffect.grantedTags);
-
-            foreach (var requireTag in spec.gameEffect.applicationTagRequirements.requireTags)
+            if (tags == null)
+                return true;
+            
+            foreach (var tag in tags)
             {
-                if (!appliedTags.Contains(requireTag))
+                var flag = false;
+                foreach (var appliedGameEffect in appliedGameEffects)
+                {
+                    foreach (var grantedTag in appliedGameEffect.spec.gameEffect.grantedTags)
+                    {
+                        if (grantedTag.IsDescendantOf(tag))
+                            flag = true;
+                    }
+                }
+
+                if (!flag)
                     return false;
             }
 
-            foreach (var requireTag in spec.gameEffect.applicationTagRequirements.ignoreTags)
+            return true;
+        }
+        
+        public bool HasIgnoreTags(GameTag[] tags)
+        {
+            if (tags == null)
+                return true;
+
+            foreach (var tag in tags)
             {
-                if (appliedTags.Contains(requireTag))
+                var flag = true;
+                foreach (var appliedGameEffect in appliedGameEffects)
+                {
+                    foreach (var grantedTag in appliedGameEffect.spec.gameEffect.grantedTags)
+                    {
+                        if (grantedTag.IsDescendantOf(tag))
+                            flag = false;
+                    }
+                }
+
+                if (!flag)
                     return false;
             }
 

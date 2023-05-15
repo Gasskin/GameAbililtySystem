@@ -99,7 +99,7 @@ namespace GameAbilitySystem
                 {
                     foreach (var coolDownTag in coolDownTags)
                     {
-                        if (grantedTag == coolDownTag)
+                        if (grantedTag.IsDescendantOf(coolDownTag))
                         {
                             if (appliedGameEffect.spec.gameEffect.durationPolicy == EDurationPolicy.Infinite)
                             {
@@ -126,60 +126,6 @@ namespace GameAbilitySystem
                 timeRemaining = longestCooldown,
                 totalDuration = maxDuration
             };
-        }
-
-        public bool HasAllTags(AbilitySystemComponent asc, GameTag[] tags)
-        {
-            if (asc == null)
-                return false;
-
-            if (tags == null)
-                return true;
-
-            foreach (var tag in tags)
-            {
-                var flag = false;
-                foreach (var appliedGameEffect in asc.appliedGameEffects)
-                {
-                    foreach (var grantedTag in appliedGameEffect.spec.gameEffect.grantedTags)
-                    {
-                        if (grantedTag == tag)
-                            flag = true;
-                    }
-                }
-
-                if (!flag)
-                    return false;
-            }
-
-            return true;
-        }
-
-        public bool HasNoneTags(AbilitySystemComponent asc, GameTag[] tags)
-        {
-            if (asc == null)
-                return false;
-
-            if (tags == null)
-                return true;
-
-            foreach (var tag in tags)
-            {
-                var flag = true;
-                foreach (var appliedGameEffect in asc.appliedGameEffects)
-                {
-                    foreach (var grantedTag in appliedGameEffect.spec.gameEffect.grantedTags)
-                    {
-                        if (grantedTag == tag)
-                            flag = false;
-                    }
-                }
-
-                if (!flag)
-                    return false;
-            }
-
-            return true;
         }
     }
 }

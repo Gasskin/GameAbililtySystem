@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using GameAbilitySystem.Ability;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameAbilitySystem
