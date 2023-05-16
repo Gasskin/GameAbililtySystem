@@ -68,7 +68,6 @@ namespace GASExample
                         owner.ApplyGameEffectSpecToSelf(effectSpec);
                     }
 
-                    playerController.PlayAnimation(simpleAbility.animationClip);
                     var vfx = Instantiate(simpleAbility.vfx);
                     vfx.transform.SetParent(owner.transform, false);
                     Destroy(vfx.gameObject,0.2f);
