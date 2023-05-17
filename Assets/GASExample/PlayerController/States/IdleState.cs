@@ -1,11 +1,23 @@
 using Animancer;
+using UnityEngine;
 
-public class IdleState : PlayerState
+namespace GASExample
 {
-    public ClipTransition clipTransition;
-
-    private void OnEnable()
+    public class IdleState : PlayerState
     {
-        controller.animancer.Play(clipTransition);
+        public ClipTransition clipTransition;
+
+        public override void UpdateState()
+        {
+            if (controller.input.MoveInput == Vector2.zero)
+            {
+                controller.TrySetState(StateIndex.Idle);
+            }
+        }
+
+        private void OnEnable()
+        {
+            controller.animancer.Play(clipTransition);
+        }
     }
 }

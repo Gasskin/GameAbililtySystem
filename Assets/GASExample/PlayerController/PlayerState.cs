@@ -1,45 +1,55 @@
 using Animancer;
 using Animancer.FSM;
+using Sirenix.OdinInspector;
 
-public enum PlayerStatePriority
+namespace GASExample
 {
-    Low = 0,
-    Medium = 1,
-    High = 2,
-}
 
-public class PlayerState : StateBehaviour
-{
-    [System.Serializable]
-    public class StateMachine : StateMachine<PlayerState>.WithDefault
+    public enum PlayerStatePriority
     {
+        Basic = 0,
+        Attack = 2,
+        Ability = 3,
+        Hit = 4,
     }
 
-    public PlayerController controller;
-
-    public virtual PlayerStatePriority Priority => PlayerStatePriority.Low;
-
-    public virtual bool CanInterruptSelf => false;
-
-    public override bool CanExitState
+    public abstract class PlayerState : StateBehaviour
     {
-        get
+        [System.Serializable]
+        public class StateMachine : StateMachine<PlayerState>.WithDefault
         {
-            var nextState = controller.stateMachine.NextState;
-            if (nextState == this)
-                return CanInterruptSelf;
-            if (Priority == PlayerStatePriority.Low)
-                return true;
-            return nextState.Priority > Priority;
         }
-    }
-    
-    
+
+        public PlayerController controller;
+
+        [LabelText("权重类型")]
+        public PlayerStatePriority priority = PlayerStatePriority.Basic;
+
+        [LabelText("能否切换到自身")]
+        public bool canInterruptSelf = false;
+
+        public abstract void UpdateState();
+
+        public override bool CanExitState
+        {
+            get
+            {
+                var nextState = controller.stateMachine.NextState;
+                if (nextState == this)
+                    return canInterruptSelf;
+                if (priority == PlayerStatePriority.Basic)
+                    return true;
+                return nextState.priority > priority;
+            }
+        }
+
+
 #if UNITY_EDITOR
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        gameObject.GetComponentInParentOrChildren(ref controller);
-    }
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            gameObject.GetComponentInParentOrChildren(ref controller);
+        }
 #endif
+    }
 }

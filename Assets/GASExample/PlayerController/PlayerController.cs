@@ -1,68 +1,55 @@
 using Animancer;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public struct StateIndex
+namespace GASExample
 {
-    public const int Idle = 0;
-
-    public const int Walk = 1;
-}
-
-public class PlayerController : MonoBehaviour
-{
-    public PlayerState.StateMachine stateMachine;
-    public AnimancerComponent animancer;
-    public PlayerState[] states;
-
-    public float moveInputSmoothSpeed = 0.1f;
-
-
-    [DoNotSerialize,HideInInspector]
-    public Vector2 moveInput;
-#region 生命周期
-    private void Awake()
+    public struct StateIndex
     {
-        stateMachine.InitializeAfterDeserialize();
+        public const int Idle = 0;
+
+        public const int Run = 1;
+
+        public const int Attack = 2;
     }
 
-    private void Update()
+    public class PlayerController : MonoBehaviour
     {
-        UpdateInput();
-    }
-#endregion
+        public PlayerState.StateMachine stateMachine;
+        public AnimancerComponent animancer;
+        public PlayerState[] states;
+        public PlayerInput input = new();
 
-#region 输入控制
-    private void UpdateInput()
-    {
-    }
-#endregion
+        private void Awake()
+        {
+            stateMachine.InitializeAfterDeserialize();
+        }
 
-#region Input
-    public void Move(InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-        if (ctx.performed)
-            stateMachine.TrySetState(states[StateIndex.Walk]);
-        else
+        private void Update()
+        {
+            input.ResetInput();
+            input.UpdateInput();
+
+            foreach (var state in states)
+                state.UpdateState();
+        }
+
+        public void TrySetState(int index)
+        {
+            if (index >= states.Length)
+                return;
+            stateMachine.TrySetState(states[index]);
+        }
+
+        public void ForceSetState(int index)
+        {
+            if (index >= states.Length)
+                return;
+            stateMachine.ForceSetState(states[index]);
+        }
+
+        public void TrySetDefaultState()
+        {
             stateMachine.TrySetDefaultState();
+        }
     }
-
-    public void Skill_1(InputAction.CallbackContext ctx)
-    {
-    }
-
-    public void Skill_2(InputAction.CallbackContext ctx)
-    {
-    }
-
-    public void Skill_3(InputAction.CallbackContext ctx)
-    {
-    }
-
-    public void Skill_4(InputAction.CallbackContext ctx)
-    {
-    }
-#endregion
 }
