@@ -28,8 +28,6 @@ namespace GASExample
         [LabelText("能否切换到自身")]
         public bool canInterruptSelf = false;
 
-        public abstract void UpdateState();
-
         public override bool CanExitState
         {
             get

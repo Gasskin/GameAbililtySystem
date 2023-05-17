@@ -9,32 +9,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72d84e524da1fbb40899d64adcaf91f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f7e685f542739747be2ad122fdf2463, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
   assetTag: {fileID: 0}
   cancelAbilityWithTags: []
-  blockAbilityWithTags: []
+  blockAbilityWithTags:
+  - {fileID: 0}
   activationOwnedTags: []
   ownerTags:
     requireTags: []
-    ignoreTags: []
+    ignoreTags:
+    - {fileID: 11400000, guid: bc765ccb35ba6094ca0dd530afbb7649, type: 2}
   sourceTags:
     requireTags: []
     ignoreTags: []
   targetTags:
     requireTags: []
     ignoreTags: []
-  coolDown: {fileID: 11400000, guid: bbd569403fdf04243b813bbcb5db3eeb, type: 2}
+  coolDown: {fileID: 0}
   cost: {fileID: 0}
-  gameEffect: {fileID: 0}
-  animationClip:
-    _FadeDuration: 0.25
+  startEffect: {fileID: 11400000, guid: 5334cf9f4cba4f6428d73645e7c8d68a, type: 2}
+  hitPointEffect: {fileID: 11400000, guid: 317d3fca852e7fa4693436122b483db9, type: 2}
+  backSwingEffect: {fileID: 11400000, guid: d14fb898082727b4a8c7f703144466e5, type: 2}
+  clips:
+  - _FadeDuration: 0.25
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.01
+      - 0.52412146
+      - 0.6731995
+      - NaN
       _Callbacks: []
-      _Names: []
-    _Clip: {fileID: 7400000, guid: efc8c109415f6894299a94e469cc4ade, type: 2}
+      _Names:
+      - Start
+      - HitPoint
+      - BackSwing
+    _Clip: {fileID: 7400000, guid: 3eb3b15eca194c54fa3dfdee27491246, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN
-  vfx: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
+  - _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - 0.01
+      - 0.40798095
+      - 0.6492989
+      - 1.0169649
+      _Callbacks: []
+      _Names:
+      - Start
+      - HitPoint
+      - BackSwing
+    _Clip: {fileID: 7400000, guid: a635dfaecafd0c54aa19f649d804026c, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  - _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - 0.01
+      - 0.521888
+      - 0.7042702
+      - NaN
+      _Callbacks: []
+      _Names:
+      - Start
+      - HitPoint
+      - BackSwing
+    _Clip: {fileID: 7400000, guid: 77467832c1f9d16498a45c6e6ac4bf9f, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN

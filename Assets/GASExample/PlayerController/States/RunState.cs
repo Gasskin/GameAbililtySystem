@@ -15,14 +15,9 @@ namespace GASExample
             controller.animancer.Play(transition);
         }
 
-        public override void UpdateState()
+        private void Update()
         {
-            if (controller.input.MoveInput != Vector2.zero) 
-            {
-                controller.TrySetState(StateIndex.Run);
-                transition.State.Parameter = controller.input.MoveInput;
-                Debug.LogError(controller.input.MoveInput);
-            }
+            transition.State.Parameter = controller.input.MoveInput;
         }
     }
 }

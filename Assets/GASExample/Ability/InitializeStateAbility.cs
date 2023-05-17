@@ -27,7 +27,7 @@ namespace GASExample
             protected override bool CheckGameTags()
             {
                 return owner.HasAllTags( ability.ownerTags.requireTags) &&
-                       !owner.HasIgnoreTags(ability.ownerTags.ignoreTags);
+                       owner.HasNoTags(ability.ownerTags.ignoreTags);
             }
 
             public override UniTask ActivateAbility()

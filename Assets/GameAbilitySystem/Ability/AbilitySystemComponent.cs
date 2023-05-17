@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace GameAbilitySystem.Ability
@@ -24,6 +26,31 @@ namespace GameAbilitySystem.Ability
         public List<BaseAbilitySpec> grantedAbilities = new();
 
         public float level;
+
+#if UNITY_EDITOR
+        [OnInspectorGUI]
+        public void OnInspectorGUI()
+        {
+            var tags = "";
+            foreach (var appliedGameEffect in appliedGameEffects)
+            {
+                foreach (var gameTag in appliedGameEffect.spec.gameEffect.grantedTags)
+                {
+                    if (string.IsNullOrEmpty(tags))
+                        tags = gameTag.name;
+                    else
+                        tags = "\n" + gameTag.name;
+                }
+            }
+            
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+            GUI.enabled = false;
+            EditorGUILayout.LabelField("游戏效果：");
+            EditorGUILayout.TextArea(tags);
+            GUI.enabled = true;
+        }
+#endif
 
         public GameEffectSpec MakeGameEffectSpec(GameEffect gameEffect, float level = 1f)
         {
@@ -60,14 +87,15 @@ namespace GameAbilitySystem.Ability
                 appliedGameEffect.spec.TickPeriod(Time.deltaTime, out var execute);
 
                 var onGoingTags = appliedGameEffect.spec.gameEffect.onGoingTagRequirements;
-                
-                if (execute)
+
+                if (execute && HasAllTags(onGoingTags.requireTags) && HasNoTags(onGoingTags.ignoreTags))
                 {
                     // ApplyInstantGameEffect(appliedGameEffect.spec);
                     // var modifierContainers = new List<ModifierContainer>();
                     foreach (var modifier in appliedGameEffect.spec.gameEffect.modifiers)
                     {
-                        var magnitude = modifier.modifierMagnitude.CalculateMagnitude(appliedGameEffect.spec) * modifier.multiplier;
+                        var magnitude = modifier.modifierMagnitude.CalculateMagnitude(appliedGameEffect.spec) *
+                                        modifier.multiplier;
                         var attributeModifier = new GameAttributeModifier();
                         switch (modifier.modifierOperator)
                         {
@@ -81,6 +109,7 @@ namespace GameAbilitySystem.Ability
                                 attributeModifier.overwrite = magnitude;
                                 break;
                         }
+
                         // modifierContainers.Add(new ModifierContainer
                         // {
                         //     attribute = modifier.attribute,
@@ -92,6 +121,8 @@ namespace GameAbilitySystem.Ability
                             modifier = attributeModifier
                         });
                     }
+
+                    RemoveEffectsWithTags(appliedGameEffect.spec.gameEffect.removeGameEffectsWithTag);
                 }
             }
         }
@@ -99,15 +130,15 @@ namespace GameAbilitySystem.Ability
         private void CleanGameEffects()
         {
             appliedGameEffects.RemoveAll(x =>
-                x.spec.gameEffect.durationPolicy == EDurationPolicy.HasDuration && x.spec.durationRemaining <= 0f);
+                x.spec.gameEffect.durationPolicy != EDurationPolicy.Instant && x.spec.durationRemaining <= 0f);
         }
 
         public void ApplyGameEffectSpecToSelf(GameEffectSpec spec)
         {
             if (spec == null)
                 return;
-            if (!HasAllTags(spec.gameEffect.applicationTagRequirements.requireTags) 
-                || HasIgnoreTags(spec.gameEffect.applicationTagRequirements.ignoreTags))
+            if (!HasAllTags(spec.gameEffect.applicationTagRequirements.requireTags) ||
+                !HasNoTags(spec.gameEffect.applicationTagRequirements.ignoreTags))
                 return;
             switch (spec.gameEffect.durationPolicy)
             {
@@ -125,7 +156,7 @@ namespace GameAbilitySystem.Ability
         {
             foreach (var modifier in spec.gameEffect.modifiers)
             {
-                if (attributeSystemComponent.TryGetAttributeValue(modifier.attribute,out var attributeValue))
+                if (attributeSystemComponent.TryGetAttributeValue(modifier.attribute, out var attributeValue))
                 {
                     var value = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
                     switch (modifier.modifierOperator)
@@ -144,6 +175,9 @@ namespace GameAbilitySystem.Ability
                     attributeSystemComponent.SetAttributeBaseValue(modifier.attribute, attributeValue.baseValue);
                 }
             }
+
+
+            RemoveEffectsWithTags(spec.gameEffect.removeGameEffectsWithTag);
         }
 
         private void ApplyDurationGameEffect(GameEffectSpec spec)
@@ -184,7 +218,7 @@ namespace GameAbilitySystem.Ability
         {
             if (tags == null)
                 return true;
-            
+
             foreach (var tag in tags)
             {
                 var flag = false;
@@ -203,10 +237,10 @@ namespace GameAbilitySystem.Ability
 
             return true;
         }
-        
-        public bool HasIgnoreTags(GameTag[] tags)
+
+        public bool HasNoTags(GameTag[] tags)
         {
-            if (tags == null)
+            if (tags == null || tags.Length == 0)
                 return true;
 
             foreach (var tag in tags)
@@ -226,6 +260,26 @@ namespace GameAbilitySystem.Ability
             }
 
             return true;
+        }
+
+        private void RemoveEffectsWithTags(GameTag[] gameTags)
+        {
+            foreach (var gameTag in gameTags)
+            {
+                foreach (var appliedGameEffect in appliedGameEffects)
+                {
+                    foreach (var grantedTag in appliedGameEffect.spec.gameEffect.grantedTags)
+                    {
+                        if (grantedTag.IsDescendantOf(gameTag))
+                        {
+                            appliedGameEffect.spec.durationRemaining = 0f;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            CleanGameEffects();
         }
     }
 }

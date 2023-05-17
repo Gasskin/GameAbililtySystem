@@ -16,11 +16,6 @@ namespace GameAbilitySystem
     {
     #region 标签
         [FoldoutGroup("标签")]
-        [LabelText("自身标签")]
-        [LabelWidth(50)]
-        public GameTag assetTag;
-        
-        [FoldoutGroup("标签")]
         [LabelText("附加标签")]
         [Tooltip("这个效果会附加的标签")]
         [LabelWidth(50)]

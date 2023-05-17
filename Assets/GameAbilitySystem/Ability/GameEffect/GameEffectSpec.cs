@@ -45,13 +45,15 @@ namespace GameAbilitySystem
         }
 
 
-        public GameEffectSpec UpdateRemainingDuration(float deltaTime)
+        public void UpdateRemainingDuration(float deltaTime)
         {
-            durationRemaining -= deltaTime;
-            return this;
+            if (gameEffect.durationPolicy == EDurationPolicy.Infinite)
+                durationRemaining = 1;
+            else
+                durationRemaining -= deltaTime;
         }
 
-        public GameEffectSpec TickPeriod(float deltaTime, out bool executePeriodicTick)
+        public void TickPeriod(float deltaTime, out bool executePeriodicTick)
         {
             executePeriodicTick = false;
             timeUntilPeriodTick -= deltaTime;
@@ -61,8 +63,6 @@ namespace GameAbilitySystem
                 if (gameEffect.period > 0)
                     executePeriodicTick = true;
             }
-
-            return this;
         }
     }
 }

@@ -3,6 +3,7 @@
 using Animancer.Units;
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -29,7 +30,7 @@ namespace Animancer
         ClipState.ITransition, IMotion, IAnimationClipCollection, ICopyable<ClipTransition>
     {
         /************************************************************************************************************************/
-
+        
         /// <summary>The name of the serialized backing field of <see cref="Clip"/>.</summary>
         public const string ClipFieldName = nameof(_Clip);
 
@@ -188,6 +189,7 @@ namespace Animancer
 #if UNITY_EDITOR
         /************************************************************************************************************************/
 
+        
         /// <inheritdoc/>
         [UnityEditor.CustomPropertyDrawer(typeof(ClipTransition), true)]
         public class Drawer : Editor.TransitionDrawer

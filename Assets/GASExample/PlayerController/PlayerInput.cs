@@ -23,9 +23,9 @@ namespace GASExample
             MoveInput = Vector2.zero;
         }
         
-        public void UpdateInput()
+        public void GetInput()
         {
-            Attack = Input.GetMouseButton(1);
+            Attack = Input.GetMouseButtonUp(0);
             Skill1 = Input.GetKeyDown(KeyCode.Alpha1);
             SKill2 = Input.GetKeyDown(KeyCode.Alpha2);
             Skill3 = Input.GetKeyDown(KeyCode.Alpha3);
