@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
+  m_Name: Cooldown
+  m_EditorClassIdentifier: 
+  grantedTags:
+  - {fileID: 11400000, guid: e4d7e98c26a71f64490ffb51a69f69c4, type: 2}
+  removeGameEffectsWithTag: []
+  onGoingTagRequirements:
+    requireTags: []
+    ignoreTags: []
+  applicationTagRequirements:
+    requireTags: []
+    ignoreTags: []
+  removalTagRequirements:
+    requireTags: []
+    ignoreTags: []
+  durationPolicy: 2
+  period: 1
+  executeImmediate: 0
+  durationMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
+  durationMultiplier: 5
+  modifiers: []

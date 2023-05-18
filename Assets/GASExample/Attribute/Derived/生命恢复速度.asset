@@ -15,4 +15,4 @@ MonoBehaviour:
   name: "\u751F\u547D\u6062\u590D\u901F\u5EA6"
   Attribute: {fileID: 11400000, guid: ae4e5d0a72a01b7468c65fd76016502f, type: 2}
   gradient: 0.1
-  offset: 1.25
+  offset: 20

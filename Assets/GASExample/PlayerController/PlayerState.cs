@@ -1,5 +1,6 @@
 using Animancer;
 using Animancer.FSM;
+using GameAbilitySystem;
 using Sirenix.OdinInspector;
 
 namespace GASExample
@@ -21,10 +22,8 @@ namespace GASExample
         }
 
         public PlayerController controller;
-
         [LabelText("权重类型")]
         public PlayerStatePriority priority = PlayerStatePriority.Basic;
-
         [LabelText("能否切换到自身")]
         public bool canInterruptSelf = false;
 
@@ -41,6 +40,11 @@ namespace GASExample
             }
         }
 
+        public virtual void PrepareState(BaseAbilitySpec spec)
+        {
+            
+        }
+        
 
 #if UNITY_EDITOR
         protected override void OnValidate()

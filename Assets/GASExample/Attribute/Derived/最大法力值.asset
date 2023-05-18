@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u6700\u5927\u6CD5\u529B\u503C"
   Attribute: {fileID: 11400000, guid: 6c075147be02bec4fb80c14287b89bb0, type: 2}
-  gradient: 12
-  offset: 75
+  gradient: 10
+  offset: 100

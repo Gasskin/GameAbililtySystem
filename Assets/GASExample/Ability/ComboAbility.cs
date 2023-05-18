@@ -15,7 +15,9 @@ public class ComboAbility : BaseAbility
     public GameEffect hitPointEffect;
     [LabelText("后摇效果")]
     public GameEffect backSwingEffect;
-    
+    [LabelText("速度")]
+    public GameAttribute speed;
+
     [LabelText("连招")]
     [EventNames("Start", "HitPoint", "BackSwing")]
     public ClipTransition[] clips;
@@ -48,16 +50,17 @@ public class ComboAbility : BaseAbility
         var spec = new ComboAbilitySpec(this, owner)
         {
             level = owner.level,
-            transition = clips[ComboIndex],
+            speed = speed,
         };
         return spec;
     }
 
-    private class ComboAbilitySpec : BaseAbilitySpec
+    public class ComboAbilitySpec : BaseAbilitySpec
     {
         public ClipTransition transition;
         public PlayerController controller;
-
+        public GameAttribute speed;
+        public float speedValue;
         private ComboAbility comboAbility;
         
         public ComboAbilitySpec(BaseAbility ability, AbilitySystemComponent owner) : base(ability, owner)
@@ -80,48 +83,47 @@ public class ComboAbility : BaseAbility
 
         public override UniTask PreActivate()
         {
-            transition.Events.SetCallback("Start",OnStart);
-            transition.Events.SetCallback("HitPoint",OnHitPoint);
-            transition.Events.SetCallback("BackSwing",OnBackSwing);
-            transition.Events.OnEnd = OnEnd;
+            transition = comboAbility.clips[comboAbility.ComboIndex];
+            owner.attributeSystemComponent.TryGetAttributeValue(speed, out var value);
+            speedValue = value.currentValue;
+            controller.PrepareAttack(this);
             return base.PreActivate();
         }
 
         public override UniTask ActivateAbility()
         {
-            var state = controller.attack as AttackState;
-            state.transition = transition;
-            controller.stateMachine.ForceSetState(controller.attack);
+            controller.EnterAttack();
             return base.ActivateAbility();
         }
 
-        public override void EndAbility()
-        {
-            base.EndAbility();
-        }
-
-
-        private void OnStart()
+        public void OnStart()
         {
             var spec = owner.MakeGameEffectSpec(comboAbility.startEffect, level);
             owner.ApplyGameEffectSpecToSelf(spec);
         }
         
-        private void OnHitPoint()
+        public void OnHitPoint()
         {
             comboAbility.ComboIndex++;
         }
         
-        private void OnBackSwing()
+        public void OnBackSwing()
         {
             var spec = owner.MakeGameEffectSpec(comboAbility.backSwingEffect, level);
             owner.ApplyGameEffectSpecToSelf(spec);
         }
 
-        private void OnEnd()
+        public void OnEnd()
         {
             comboAbility.ComboIndex = 0;
-            controller.stateMachine.ForceSetDefaultState();
+        }
+        
+        public override void EndAbility()
+        {
+            base.EndAbility();
+            comboAbility.ComboIndex = 0;
+            var spec = owner.MakeGameEffectSpec(comboAbility.backSwingEffect, level);
+            owner.ApplyGameEffectSpecToSelf(spec);
         }
     }
 }

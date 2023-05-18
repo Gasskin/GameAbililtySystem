@@ -10,6 +10,8 @@ namespace GASExample
         public bool Skill3 { get; private set; } = false;
         public bool Skill4 { get; private set; } = false;
         
+        public bool Roll { get; private set; } = false;
+        
         public Vector2 MoveInput { get; private set; } = Vector2.zero;
         
         public void ResetInput()
@@ -19,6 +21,7 @@ namespace GASExample
             SKill2 = false;
             Skill3 = false;
             Skill4 = false;
+            Roll = false;
 
             MoveInput = Vector2.zero;
         }
@@ -30,6 +33,7 @@ namespace GASExample
             SKill2 = Input.GetKeyDown(KeyCode.Alpha2);
             Skill3 = Input.GetKeyDown(KeyCode.Alpha3);
             Skill4 = Input.GetKeyDown(KeyCode.Alpha4);
+            Roll = Input.GetKeyDown(KeyCode.LeftShift);
             MoveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
     }

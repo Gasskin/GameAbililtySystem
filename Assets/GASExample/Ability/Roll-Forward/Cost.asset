@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
-  m_Name: cost
+  m_Name: Cost
   m_EditorClassIdentifier: 
-  assetTag: {fileID: 0}
   grantedTags: []
   removeGameEffectsWithTag: []
   onGoingTagRequirements:
@@ -24,13 +23,13 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 2
-  period: 1
+  durationPolicy: 0
+  period: 0
   executeImmediate: 0
-  durationMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
+  durationMagnitude: {fileID: 0}
   durationMultiplier: 0
   modifiers:
   - attribute: {fileID: 11400000, guid: d12eeaba8e877944dbeb503ab7a68c8a, type: 2}
     modifierOperator: 0
-    modifierMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
+    modifierMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
     multiplier: -20

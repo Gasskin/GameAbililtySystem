@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
-  m_Name: health
+  m_Name: RoleForward.HitPoint
   m_EditorClassIdentifier: 
-  assetTag: {fileID: 0}
-  grantedTags: []
+  grantedTags:
+  - {fileID: 0}
   removeGameEffectsWithTag: []
   onGoingTagRequirements:
     requireTags: []
@@ -25,12 +25,8 @@ MonoBehaviour:
     requireTags: []
     ignoreTags: []
   durationPolicy: 1
-  period: 1
-  executeImmediate: 0
-  durationMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
-  durationMultiplier: 10
-  modifiers:
-  - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
-    modifierOperator: 0
-    modifierMagnitude: {fileID: 11400000, guid: 7743680745da64a4fbeb93ed95c70afd, type: 2}
-    multiplier: 1
+  period: 10000
+  executeImmediate: 1
+  durationMagnitude: {fileID: 0}
+  durationMultiplier: 0
+  modifiers: []

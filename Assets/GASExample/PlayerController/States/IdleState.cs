@@ -6,8 +6,9 @@ namespace GASExample
     {
         public ClipTransition clipTransition;
 
-        private void OnEnable()
+        public override void OnEnterState()
         {
+            base.OnEnterState();
             controller.animancer.Play(clipTransition);
         }
     }

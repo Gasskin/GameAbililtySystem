@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b36c3853f4d474084a57042763fd96d, type: 3}
-  m_Name: Float1
+  m_Script: {fileID: 11500000, guid: 929c7a9a95e749e1826b07ca2b9182cc, type: 3}
+  m_Name: HealthRegion
   m_EditorClassIdentifier: 
+  capturedAttribute: {fileID: 11400000, guid: 629c98c56e78b66419fcdb5174f670fd, type: 2}
+  captureAttributeFrom: 0
+  captureAttributeWhen: 1
   animationCurve:
     serializedVersion: 2
     m_Curve:

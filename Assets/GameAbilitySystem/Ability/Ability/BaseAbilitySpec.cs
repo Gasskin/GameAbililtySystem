@@ -29,9 +29,11 @@ namespace GameAbilitySystem
         {
             if (!CanActivateAbility())
                 return;
+            // if (owner.currentAbility != null)
+            //     owner.currentAbility.EndAbility();
+            // owner.currentAbility = this;
             await PreActivate();
             await ActivateAbility();
-            EndAbility();
         }
 
         private bool CanActivateAbility()
@@ -55,6 +57,7 @@ namespace GameAbilitySystem
         public virtual void EndAbility()
         {
             isActive = false;
+            owner.currentAbility = null;
         }
 
         private bool CheckCost()

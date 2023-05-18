@@ -23,8 +23,8 @@ namespace GameAbilitySystem.Ability
         public AttributeSystemComponent attributeSystemComponent;
 
         public readonly List<GameEffectContainer> appliedGameEffects = new();
-        public List<BaseAbilitySpec> grantedAbilities = new();
-
+        public Dictionary<BaseAbility, BaseAbilitySpec> grantedAbilities = new();
+        public BaseAbilitySpec currentAbility;
         public float level;
 
 #if UNITY_EDITOR
@@ -42,7 +42,7 @@ namespace GameAbilitySystem.Ability
                         tags = "\n" + gameTag.name;
                 }
             }
-            
+
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             GUI.enabled = false;
@@ -125,6 +125,8 @@ namespace GameAbilitySystem.Ability
                     RemoveEffectsWithTags(appliedGameEffect.spec.gameEffect.removeGameEffectsWithTag);
                 }
             }
+
+            CleanGameEffects();
         }
 
         private void CleanGameEffects()
@@ -178,6 +180,7 @@ namespace GameAbilitySystem.Ability
 
 
             RemoveEffectsWithTags(spec.gameEffect.removeGameEffectsWithTag);
+            CleanGameEffects();
         }
 
         private void ApplyDurationGameEffect(GameEffectSpec spec)
@@ -278,8 +281,22 @@ namespace GameAbilitySystem.Ability
                     }
                 }
             }
-            
-            CleanGameEffects();
+        }
+
+        public void AddAbility(BaseAbility baseAbility)
+        {
+            if (!grantedAbilities.ContainsKey(baseAbility))
+            {
+                grantedAbilities.Add(baseAbility, baseAbility.CreateSpec(this));
+            }
+        }
+
+        public void ActiveAbility(BaseAbility baseAbility)
+        {
+            if (grantedAbilities.TryGetValue(baseAbility,out var spec))
+            {
+                spec.TryActivateAbility();
+            }
         }
     }
 }

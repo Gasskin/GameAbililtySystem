@@ -10,8 +10,9 @@ namespace GASExample
         private Vector2 currentMoveInput;
         private Vector2 smoothVelocity;
 
-        private void OnEnable()
+        public override void OnEnterState()
         {
+            base.OnEnterState();
             controller.animancer.Play(transition);
         }
 

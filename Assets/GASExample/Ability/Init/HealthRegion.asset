@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
-  m_Name: cooldown
+  m_Name: HealthRegion
   m_EditorClassIdentifier: 
-  assetTag: {fileID: 0}
   grantedTags: []
   removeGameEffectsWithTag: []
   onGoingTagRequirements:
@@ -24,17 +23,13 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 2
+  durationPolicy: 1
   period: 1
-  executeOnApplication: 0
-  durationMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
+  executeImmediate: 0
+  durationMagnitude: {fileID: 0}
   durationMultiplier: 0
   modifiers:
-  - attribute: {fileID: 11400000, guid: ae4e5d0a72a01b7468c65fd76016502f, type: 2}
-    modifierOperator: 0
-    modifierMagnitude: {fileID: 11400000, guid: e270adaba3a38d3448755519b2981aa8, type: 2}
-    multiplier: 0
   - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
-    modifierOperator: 1
-    modifierMagnitude: {fileID: 11400000, guid: 84464fdec10b04b48bb103f969ef52a0, type: 2}
-    multiplier: 0
+    modifierOperator: 0
+    modifierMagnitude: {fileID: 11400000, guid: 0bf68803a0dcaaf4dbd9f0d6c98689ee, type: 2}
+    multiplier: 10
