@@ -24,7 +24,7 @@ namespace GameAbilitySystem.Ability
 
         public readonly List<GameEffectContainer> appliedGameEffects = new();
         public Dictionary<BaseAbility, BaseAbilitySpec> grantedAbilities = new();
-        public BaseAbilitySpec currentAbility;
+        public List<BaseAbilitySpec> currentAbilitySpecs = new();
         public float level;
 
 #if UNITY_EDITOR
@@ -36,19 +36,14 @@ namespace GameAbilitySystem.Ability
             {
                 foreach (var gameTag in appliedGameEffect.spec.gameEffect.grantedTags)
                 {
-                    if (string.IsNullOrEmpty(tags))
-                        tags = gameTag.name;
-                    else
-                        tags = "\n" + gameTag.name;
+                    tags = string.IsNullOrEmpty(tags) ? gameTag.name : $"{tags}\n{gameTag.name}";
                 }
             }
 
             EditorGUILayout.Space();
             EditorGUILayout.Space();
-            GUI.enabled = false;
             EditorGUILayout.LabelField("游戏效果：");
             EditorGUILayout.TextArea(tags);
-            GUI.enabled = true;
         }
 #endif
 
@@ -297,6 +292,26 @@ namespace GameAbilitySystem.Ability
             {
                 spec.TryActivateAbility();
             }
+        }
+
+        public void CancelAbilityWithTags(GameTag[] gameTags)
+        {
+            if (gameTags == null || gameTags.Length <= 0) 
+                return;
+            
+            foreach (var abilitySpec in currentAbilitySpecs)
+            {
+                foreach (var gameTag in gameTags)
+                {
+                    if (abilitySpec.ability.assetTag && abilitySpec.ability.assetTag.IsDescendantOf(gameTag)) 
+                    {
+                        abilitySpec.EndAbility();
+                        break;
+                    }
+                }
+            }
+
+            currentAbilitySpecs.RemoveAll(x => !x.isActive);
         }
     }
 }

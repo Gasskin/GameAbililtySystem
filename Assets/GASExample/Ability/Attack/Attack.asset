@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7e685f542739747be2ad122fdf2463, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  assetTag: {fileID: 0}
+  assetTag: {fileID: 11400000, guid: d8130c52647d329488750323894393e9, type: 2}
   cancelAbilityWithTags: []
   blockAbilityWithTags:
   - {fileID: 0}
@@ -29,6 +29,8 @@ MonoBehaviour:
     ignoreTags: []
   coolDown: {fileID: 0}
   cost: {fileID: 0}
+  canActiveWhenActive: 1
+  endSelfWhenActiveInActive: 0
   startEffect: {fileID: 11400000, guid: 5334cf9f4cba4f6428d73645e7c8d68a, type: 2}
   hitPointEffect: {fileID: 11400000, guid: 317d3fca852e7fa4693436122b483db9, type: 2}
   backSwingEffect: {fileID: 11400000, guid: d14fb898082727b4a8c7f703144466e5, type: 2}
@@ -47,7 +49,7 @@ MonoBehaviour:
       - HitPoint
       - BackSwing
     _Clip: {fileID: 7400000, guid: 3eb3b15eca194c54fa3dfdee27491246, type: 2}
-    _Speed: 0.5
+    _Speed: 1
     _NormalizedStartTime: NaN
   - _FadeDuration: 0.25
     _Events:
@@ -62,7 +64,7 @@ MonoBehaviour:
       - HitPoint
       - BackSwing
     _Clip: {fileID: 7400000, guid: a635dfaecafd0c54aa19f649d804026c, type: 2}
-    _Speed: 0.5
+    _Speed: 1
     _NormalizedStartTime: NaN
   - _FadeDuration: 0.25
     _Events:
@@ -77,5 +79,5 @@ MonoBehaviour:
       - HitPoint
       - BackSwing
     _Clip: {fileID: 7400000, guid: 77467832c1f9d16498a45c6e6ac4bf9f, type: 2}
-    _Speed: 0.5
+    _Speed: 1
     _NormalizedStartTime: NaN

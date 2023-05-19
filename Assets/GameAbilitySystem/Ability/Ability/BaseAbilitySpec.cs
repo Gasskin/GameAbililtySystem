@@ -25,39 +25,44 @@ namespace GameAbilitySystem
             this.owner = owner;
         }
 
-        public async void TryActivateAbility()
+        public void TryActivateAbility()
         {
             if (!CanActivateAbility())
                 return;
-            // if (owner.currentAbility != null)
-            //     owner.currentAbility.EndAbility();
-            // owner.currentAbility = this;
-            await PreActivate();
-            await ActivateAbility();
+            ActivateAbility();
         }
 
         private bool CanActivateAbility()
         {
-            return !isActive && CheckGameTags() && CheckCost() && CheckCooldown().timeRemaining <= 0;
+            return (!isActive || (isActive && ability.canActiveWhenActive))
+                   && CheckGameTags()
+                   && CheckCost()
+                   && CheckCooldown().timeRemaining <= 0;
         }
 
         protected abstract bool CheckGameTags();
 
-
-        public virtual async UniTask PreActivate()
+        public virtual void ActivateAbility()
         {
-            await UniTask.CompletedTask;
-        }
+            isActive = true;
 
-        public virtual async UniTask ActivateAbility()
-        {
-            await UniTask.CompletedTask;
+            var index = owner.currentAbilitySpecs.IndexOf(this);
+            if (index > 0)
+            {
+                var current = owner.currentAbilitySpecs[index];
+                if (current.ability.endSelfWhenActiveInActive)
+                    current.EndAbility();
+                owner.currentAbilitySpecs.Remove(this);
+            }
+            owner.currentAbilitySpecs.Add(this);
+            
+            owner.CancelAbilityWithTags(ability.cancelAbilityWithTags);
         }
 
         public virtual void EndAbility()
         {
             isActive = false;
-            owner.currentAbility = null;
+            // owner.currentAbilitySpecs.Remove(this);
         }
 
         private bool CheckCost()

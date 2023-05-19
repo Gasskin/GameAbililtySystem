@@ -81,20 +81,27 @@ public class ComboAbility : BaseAbility
                    && owner.HasNoTags(ability.targetTags.ignoreTags);
         }
 
-        public override UniTask PreActivate()
+        public override void ActivateAbility()
         {
+            base.ActivateAbility();
             transition = comboAbility.clips[comboAbility.ComboIndex];
             owner.attributeSystemComponent.TryGetAttributeValue(speed, out var value);
             speedValue = value.currentValue;
             controller.PrepareAttack(this);
-            return base.PreActivate();
+            controller.EnterAttack();
+        }
+        
+        public override void EndAbility()
+        {
+            if (!isActive)
+                return;
+            base.EndAbility();
+            comboAbility.ComboIndex = 0;
+            var spec = owner.MakeGameEffectSpec(comboAbility.backSwingEffect, level);
+            owner.ApplyGameEffectSpecToSelf(spec);
         }
 
-        public override UniTask ActivateAbility()
-        {
-            controller.EnterAttack();
-            return base.ActivateAbility();
-        }
+    #region 动画监听
 
         public void OnStart()
         {
@@ -115,15 +122,8 @@ public class ComboAbility : BaseAbility
 
         public void OnEnd()
         {
-            comboAbility.ComboIndex = 0;
+            EndAbility();
         }
-        
-        public override void EndAbility()
-        {
-            base.EndAbility();
-            comboAbility.ComboIndex = 0;
-            var spec = owner.MakeGameEffectSpec(comboAbility.backSwingEffect, level);
-            owner.ApplyGameEffectSpecToSelf(spec);
-        }
+    #endregion
     }
 }

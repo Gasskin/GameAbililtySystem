@@ -30,7 +30,7 @@ namespace GASExample
                        owner.HasNoTags(ability.ownerTags.ignoreTags);
             }
 
-            public override UniTask ActivateAbility()
+            public override void ActivateAbility()
             {
                 if (ability.coolDown)
                 {
@@ -50,8 +50,6 @@ namespace GASExample
                     var spec = owner.MakeGameEffectSpec(initialEffect);
                     owner.ApplyGameEffectSpecToSelf(spec);
                 }
-
-                return UniTask.CompletedTask;
             }
         }
     }

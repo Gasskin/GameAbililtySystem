@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RoleForward
   m_EditorClassIdentifier: 
   assetTag: {fileID: 0}
-  cancelAbilityWithTags: []
+  cancelAbilityWithTags:
+  - {fileID: 11400000, guid: d8130c52647d329488750323894393e9, type: 2}
   blockAbilityWithTags: []
   activationOwnedTags: []
   ownerTags:
@@ -28,6 +29,8 @@ MonoBehaviour:
     ignoreTags: []
   coolDown: {fileID: 11400000, guid: 2fa188ade26b5c84b81e15a488b75334, type: 2}
   cost: {fileID: 11400000, guid: 3bb78e32b024d594486aacf67141c9a8, type: 2}
+  canActiveWhenActive: 0
+  endSelfWhenActiveInActive: 0
   startEffect: {fileID: 11400000, guid: f69373bb02fa9e24fa23c80c5c837a54, type: 2}
   hitPointEffect: {fileID: 11400000, guid: c827c3906506bee4a8ef0614dd042b8f, type: 2}
   backSwingEffect: {fileID: 11400000, guid: 93e4c6d0216a40a4781d554c3f5a1adc, type: 2}

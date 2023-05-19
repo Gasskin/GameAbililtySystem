@@ -56,15 +56,9 @@ namespace GASExample
                        && owner.HasNoTags( ability.targetTags.ignoreTags);
             }
 
-            public override UniTask PreActivate()
+            public override void ActivateAbility()
             {
-                controller.PrepareAbility(this);
-
-                return base.PreActivate();
-            }
-
-            public override UniTask ActivateAbility()
-            {
+                base.ActivateAbility();
                 if (simpleAbility.coolDown)
                 {
                     var cdSpec = owner.MakeGameEffectSpec(simpleAbility.coolDown, level);
@@ -76,10 +70,16 @@ namespace GASExample
                     var costSpec = owner.MakeGameEffectSpec(simpleAbility.cost, level);
                     owner.ApplyGameEffectSpecToSelf(costSpec);
                 }
-                
-                controller.EnterAbility();
 
-                return base.ActivateAbility();
+                controller.PrepareAbility(this);
+                controller.EnterAbility();
+            }
+
+            public override void EndAbility()
+            {
+                if (!isActive)
+                    return;
+                base.EndAbility();
             }
 
             public void OnStart()
@@ -100,7 +100,7 @@ namespace GASExample
 
             public void OnEnd()
             {
-                
+                EndAbility();
             }
         }
     }

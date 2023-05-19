@@ -42,38 +42,38 @@ namespace GASExample
                        && owner.HasNoTags( ability.targetTags.ignoreTags);
             }
 
-            public override async UniTask ActivateAbility()
+            public override void ActivateAbility()
             {
-                if (ability is ProjectileAbility projectileAbility)
-                {
-                    if (castPointComponent.GetTarget(out var target))
-                    {
-                        var transform = castPointComponent.transform;
-                        var go = Instantiate(projectile.gameObject, transform.position,
-                            transform.rotation);
-                        var projectMono = go.GetComponent<Projectile>();
-                        projectMono.source = owner;
-                        projectMono.target = target;
-                        
-                        if (projectileAbility.coolDown)
-                        {
-                            var cdSpec = owner.MakeGameEffectSpec(projectileAbility.coolDown, level);
-                            owner.ApplyGameEffectSpecToSelf(cdSpec);
-                        }
-
-                        if (projectileAbility.cost)
-                        {
-                            var costSpec = owner.MakeGameEffectSpec(projectileAbility.cost, level);
-                            owner.ApplyGameEffectSpecToSelf(costSpec);
-                        }
-
-                        await projectMono.TravelToTarget();
-                        var effect = owner.MakeGameEffectSpec(projectileAbility.gameEffect);
-                        owner.ApplyGameEffectSpecToSelf(effect);
-                        
-                        DestroyImmediate(go.gameObject);
-                    }
-                }
+                // if (ability is ProjectileAbility projectileAbility)
+                // {
+                //     if (castPointComponent.GetTarget(out var target))
+                //     {
+                //         var transform = castPointComponent.transform;
+                //         var go = Instantiate(projectile.gameObject, transform.position,
+                //             transform.rotation);
+                //         var projectMono = go.GetComponent<Projectile>();
+                //         projectMono.source = owner;
+                //         projectMono.target = target;
+                //         
+                //         if (projectileAbility.coolDown)
+                //         {
+                //             var cdSpec = owner.MakeGameEffectSpec(projectileAbility.coolDown, level);
+                //             owner.ApplyGameEffectSpecToSelf(cdSpec);
+                //         }
+                //
+                //         if (projectileAbility.cost)
+                //         {
+                //             var costSpec = owner.MakeGameEffectSpec(projectileAbility.cost, level);
+                //             owner.ApplyGameEffectSpecToSelf(costSpec);
+                //         }
+                //
+                //         await projectMono.TravelToTarget();
+                //         var effect = owner.MakeGameEffectSpec(projectileAbility.gameEffect);
+                //         owner.ApplyGameEffectSpecToSelf(effect);
+                //         
+                //         DestroyImmediate(go.gameObject);
+                //     }
+                // }
             }
         }
     }

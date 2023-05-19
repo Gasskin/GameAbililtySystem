@@ -49,6 +49,13 @@ namespace GameAbilitySystem
 
         [LabelText("技能消耗")]
         public GameEffect cost;
+
+        [LabelText("技能激活时能否再次激活")]
+        public bool canActiveWhenActive = false;
+
+        [LabelText("激活时再次激活，是否需要取消自身")]
+        [HideIf("@this.canActiveWhenActive == false")]
+        public bool endSelfWhenActiveInActive = false;
         
         public abstract BaseAbilitySpec CreateSpec(AbilitySystemComponent owner);
     }

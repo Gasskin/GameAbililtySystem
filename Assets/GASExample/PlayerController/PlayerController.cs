@@ -24,7 +24,7 @@ namespace GASExample
         public BaseAbility initAbility;
         public BaseAbility rollAbility;
 
-        private BaseAbilitySpec attackSpec;
+        // private BaseAbilitySpec attackSpec;
         
         private void Awake()
         {
@@ -33,12 +33,12 @@ namespace GASExample
 
         private void Start()
         {
-            // asc.AddAbility(attackAbility);
+            asc.AddAbility(attackAbility);
             asc.AddAbility(initAbility);
             asc.AddAbility(rollAbility);
             asc.ActiveAbility(initAbility);
 
-            attackSpec = attackAbility.CreateSpec(asc);
+            // attackSpec = attackAbility.CreateSpec(asc);
         }
 
         private void Update()
@@ -57,7 +57,7 @@ namespace GASExample
             
             if (input.Attack)
             {
-                attackSpec.TryActivateAbility();
+                asc.ActiveAbility(attackAbility);
             }
 
             if (input.Roll)
