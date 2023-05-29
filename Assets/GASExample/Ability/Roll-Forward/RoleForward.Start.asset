@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grantedTags:
   - {fileID: 11400000, guid: 0980b3a920dcf0c4082607dc64e7e28f, type: 2}
+  - {fileID: 11400000, guid: e07133974f7982d43b62b117cd152499, type: 2}
   removeGameEffectsWithTag: []
   onGoingTagRequirements:
     requireTags: []

@@ -19,11 +19,11 @@ namespace GASExample
             if (spec is SimpleAbility.SimpleAbilitySpec simpleAbilitySpec)
             {
                 transition = simpleAbilitySpec.transition;
-                if (transition.Events.IndexOf("Start") > 0) 
+                if (transition.Events.IndexOf("Start") >= 0) 
                     transition.Events.SetCallback("Start",simpleAbilitySpec.OnStart);
-                if (transition.Events.IndexOf("HitPoint") > 0) 
+                if (transition.Events.IndexOf("HitPoint") >= 0) 
                     transition.Events.SetCallback("HitPoint",simpleAbilitySpec.OnHitPoint);
-                if (transition.Events.IndexOf("BackSwing") > 0) 
+                if (transition.Events.IndexOf("BackSwing") >= 0) 
                     transition.Events.SetCallback("BackSwing",simpleAbilitySpec.OnBackSwing);
                 transition.Events.OnEnd = (() =>
                 {

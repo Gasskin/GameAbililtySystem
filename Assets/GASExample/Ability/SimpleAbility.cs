@@ -90,6 +90,8 @@ namespace GASExample
         
             public void OnHitPoint()
             {
+                var spec = owner.MakeGameEffectSpec(simpleAbility.hitPointEffect, level);
+                owner.ApplyGameEffectSpecToSelf(spec);
             }
         
             public void OnBackSwing()

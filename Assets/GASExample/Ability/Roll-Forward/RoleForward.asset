@@ -39,11 +39,13 @@ MonoBehaviour:
     _Events:
       _NormalizedTimes:
       - 0.15530768
+      - 0.208936
       - 0.77703303
       - NaN
       _Callbacks: []
       _Names:
       - Start
+      - HitPoint
       - BackSwing
     _Clip: {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
     _Speed: 1
