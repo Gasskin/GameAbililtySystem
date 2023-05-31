@@ -4,7 +4,7 @@ using ParadoxNotion.Design;
 using UnityEngine;
 
 [Category("Custom")]
-public class LogValue : CallableActionNode<string>
+public class LogValueTest : CallableActionNode<string>
 {
     public override void Invoke(string a)
     {
