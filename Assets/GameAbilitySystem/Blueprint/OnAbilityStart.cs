@@ -16,7 +16,7 @@ namespace GameAbilitySystem
 
         protected override void RegisterPorts()
         {
-            onEnter = AddFlowOutput("OnEnter");
+            onEnter = AddFlowOutput(" ");
             AddValueOutput("AbilitySystemComponent", () => asc);
         }
 

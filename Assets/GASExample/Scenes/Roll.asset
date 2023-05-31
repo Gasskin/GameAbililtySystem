@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65baa284d24adb24b90b39482364509c, type: 3}
+  m_Name: Roll
+  m_EditorClassIdentifier: 
+  _Transition:
+    rid: 5141346775410409472
+  references:
+    version: 2
+    RefIds:
+    - rid: 5141346775410409472
+      type: {class: ClipTransition, ns: Animancer, asm: Animancer}
+      data:
+        _FadeDuration: 0.25
+        _Events:
+          _NormalizedTimes:
+          - 0.20696498
+          - 0.5244151
+          - 0.8034919
+          - NaN
+          _Callbacks: []
+          _Names:
+          - one
+          - two
+          - three
+        _Clip: {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
+        _Speed: 1
+        _NormalizedStartTime: NaN

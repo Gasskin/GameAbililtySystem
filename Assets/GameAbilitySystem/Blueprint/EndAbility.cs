@@ -9,9 +9,16 @@ namespace GameAbilitySystem
     {
         protected override void RegisterPorts()
         {
+            AddValueInput<int>("Milliseconds");
+            
             AddFlowInput(" ", (f) =>
             {
-                Debug.LogError("结束啦！！");
+                Debug.LogError("结束啦");
+                var ownerGo = flowGraph.agent.gameObject;
+                if (ownerGo.TryGetComponent(out BlueprintNode node))
+                {
+                    BlueprintManager.Instance.StopBlueprint(node);
+                }
             });
         }
     }

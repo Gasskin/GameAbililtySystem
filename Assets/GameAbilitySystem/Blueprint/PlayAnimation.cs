@@ -1,29 +1,58 @@
 using Animancer;
+using FlowCanvas;
 using FlowCanvas.Nodes;
+using GASExample;
 using ParadoxNotion.Design;
 using UnityEngine;
 
-
 [Category("Custom")]
-public class PlayAnimation : FlowControlNode 
+public class PlayAnimation : FlowControlNode
 {
+    private FlowOutput onEnd;
+    private FlowOutput onEvent;
+
+    private ValueInput<ClipTransitionAsset> clipTransitionAsset;
+    private ValueInput<GameObject> owner;
+    private string eventName;
+    
     protected override void RegisterPorts()
     {
-        var condition = AddValueInput<bool>("Condition");
-        var trueOut = AddFlowOutput("OnEnd");
-        var falseOut = AddFlowOutput("OnEvent");
+        onEnd = AddFlowOutput("OnEnd");
+        onEvent = AddFlowOutput("OnEvent");
 
-        var animation = AddValueInput<AnimationClip>("clip");
-        var animancer = AddValueInput<AnimancerComponent>("Animancer");
- 
-        AddFlowInput("In", (f) =>
+        clipTransitionAsset = AddValueInput<ClipTransitionAsset>("clipTransitionAsset");
+        owner = AddValueInput<GameObject>("owner");
+
+        AddFlowInput(" ", FlowIn);
+        AddValueOutput("eventName", () => eventName);
+    }
+
+    private void FlowIn(Flow f)
+    {
+        if (owner.value.TryGetComponent(out AnimancerComponent animancer))
         {
-            var state = animancer.value.Play(animation.value);
+            var state = animancer.Play(clipTransitionAsset.value);
             state.Events.OnEnd = () =>
             {
-                f.Call(condition.value ? trueOut : falseOut);
                 state.Events.OnEnd = null;
+                if (owner.value.TryGetComponent(out PlayerController controller))
+                    controller.stateMachine.ForceSetDefaultState();
+                f.Call(onEnd);
             };
-        } );
+
+            for (int i = 0; i < state.Events.Count; i++)
+            {
+                var currentEventName = state.Events.Names[i];
+                state.Events.SetCallback(i,(() =>
+                {
+                    eventName = currentEventName;
+                    f.Call(onEvent);
+                }));
+            }
+        }
+        else
+        {
+            f.Break(this);
+        }
     }
 }

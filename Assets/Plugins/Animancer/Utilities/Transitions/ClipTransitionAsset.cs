@@ -9,6 +9,12 @@ using Object = UnityEngine.Object;
 
 namespace Animancer
 {
+    [Serializable]
+    public class ClipTransitionAsset_UnShared :
+    AnimancerTransitionAssetBase.UnShared<ClipTransitionAsset, ClipTransition, ClipState>,
+        ClipState.ITransition
+    { }
+    
     /// <inheritdoc/>
     /// https://kybernetik.com.au/animancer/api/Animancer/ClipTransitionAsset
     [CreateAssetMenu(menuName = Strings.MenuPrefix + "Clip Transition", order = Strings.AssetMenuOrder + 1)]

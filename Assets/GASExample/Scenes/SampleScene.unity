@@ -418,13 +418,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393527213}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45bee55c615afcf479360f6a33c85ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flowScript: {fileID: 11400000, guid: 286bd9d3ef9bd654aaa93d58eba3c2ce, type: 2}
   asc: {fileID: 0}
+  unShared:
+    _Asset: {fileID: 11400000, guid: ea22c7276e4b6b74d9d62007be1690aa, type: 2}
 --- !u!4 &393527215
 Transform:
   m_ObjectHideFlags: 0
@@ -1315,7 +1317,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054590199}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f945d57baba426642808adb248007ab3, type: 3}
   m_Name: 
@@ -1417,17 +1419,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentBlackboard: {fileID: 0}
-  _serializedBlackboard: '{"_variables":{"clip":{"_value":1,"_name":"clip","_id":"509c0594-8384-4c72-8aeb-4edd26b769bf","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
-    UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
+  _serializedBlackboard: '{"_variables":{"myClipTransitionAsset_UnShared":{"_value":{},"_name":"myClipTransitionAsset_UnShared","_id":"5b49edda-c9b5-4fed-a0a9-b5c423c9bcb3","$type":"NodeCanvas.Framework.Variable`1[[Animancer.ClipTransitionAsset_UnShared,
+    Animancer, Version=7.4.2.25, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences: []
   _serializedVariables:
-  - _json: '{"_value":1,"_name":"clip","_id":"509c0594-8384-4c72-8aeb-4edd26b769bf","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AnimationClip,
-      UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
-    _references:
-    - {fileID: 0}
-    - {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
+  - _json: '{"_value":{},"_name":"myClipTransitionAsset_UnShared","_id":"5b49edda-c9b5-4fed-a0a9-b5c423c9bcb3","$type":"NodeCanvas.Framework.Variable`1[[Animancer.ClipTransitionAsset_UnShared,
+      Animancer, Version=7.4.2.25, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
 --- !u!114 &1054590206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,7 +1453,7 @@ MonoBehaviour:
   _lockBoundGraphPrefabOverrides: 1
   _preInitializeSubGraphs: 0
   _updateMode: 0
-  _graph: {fileID: 11400000, guid: 504bf93af2ca0db48a840916259c68cd, type: 2}
+  _graph: {fileID: 11400000, guid: 286bd9d3ef9bd654aaa93d58eba3c2ce, type: 2}
   _blackboard: {fileID: 1054590205}
 --- !u!1 &1156254314
 GameObject:

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using FlowCanvas;
 using UIFlow;
 using UnityEngine;
@@ -8,9 +7,7 @@ namespace GameAbilitySystem
 {
     public class BlueprintManager : Singleton<BlueprintManager>
     {
-        private const string NODE_NAME = "BlueprintNode";
-
-        private Queue<BlueprintNode> nodes = new();
+        private readonly Queue<BlueprintNode> nodes = new();
         private bool isInit = false;
 
         private GameObject nodeAsset;
@@ -22,11 +19,12 @@ namespace GameAbilitySystem
             Initialize();
             var node = nodes.Count > 0 ? nodes.Dequeue() : Instantiate(nodeAsset).GetComponent<BlueprintNode>();
             node.transform.SetParent(activeRoot, false);
-            node.StartGraph(script);
+            node.StartBlueprint(script);
         }
 
-        public void EndBlueprint(BlueprintNode node)
+        public void StopBlueprint(BlueprintNode node)
         {
+            node.StopBlueprint();
             node.transform.SetParent(disableRoot, false);
             nodes.Enqueue(node);
         }
@@ -36,7 +34,7 @@ namespace GameAbilitySystem
             if (isInit)
                 return;
             isInit = true;
-            nodeAsset = Resources.Load<GameObject>(NODE_NAME);
+            nodeAsset = Resources.Load<GameObject>("BlueprintNode");
             activeRoot = new GameObject("Active").transform;
             disableRoot = new GameObject("Disable").transform;
             activeRoot.SetParent(gameObject.transform, false);
