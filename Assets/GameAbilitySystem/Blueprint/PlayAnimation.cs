@@ -5,54 +5,58 @@ using GASExample;
 using ParadoxNotion.Design;
 using UnityEngine;
 
-[Category("Custom")]
-public class PlayAnimation : FlowControlNode
+namespace GameAbilitySystem
 {
-    private FlowOutput onEnd;
-    private FlowOutput onEvent;
-
-    private ValueInput<ClipTransitionAsset> clipTransitionAsset;
-    private ValueInput<GameObject> owner;
-    private string eventName;
+    [Category("GameAbilitySystem")]
+    public class PlayAnimation : FlowControlNode
+    {
+        private FlowOutput onEnd;
+        private FlowOutput onEvent;
     
-    protected override void RegisterPorts()
-    {
-        onEnd = AddFlowOutput("OnEnd");
-        onEvent = AddFlowOutput("OnEvent");
-
-        clipTransitionAsset = AddValueInput<ClipTransitionAsset>("clipTransitionAsset");
-        owner = AddValueInput<GameObject>("owner");
-
-        AddFlowInput(" ", FlowIn);
-        AddValueOutput("eventName", () => eventName);
-    }
-
-    private void FlowIn(Flow f)
-    {
-        if (owner.value.TryGetComponent(out AnimancerComponent animancer))
+        private ValueInput<ClipTransitionAsset> clipTransitionAsset;
+        private ValueInput<GameObject> owner;
+        private string eventName;
+        
+        protected override void RegisterPorts()
         {
-            var state = animancer.Play(clipTransitionAsset.value);
-            state.Events.OnEnd = () =>
+            onEnd = AddFlowOutput("OnEnd");
+            onEvent = AddFlowOutput("OnEvent");
+    
+            clipTransitionAsset = AddValueInput<ClipTransitionAsset>("clipTransitionAsset");
+            owner = AddValueInput<GameObject>("owner");
+    
+            AddFlowInput(" ", FlowIn);
+            AddValueOutput("eventName", () => eventName);
+        }
+    
+        private void FlowIn(Flow f)
+        {
+            if (owner.value.TryGetComponent(out AnimancerComponent animancer))
             {
-                state.Events.OnEnd = null;
-                if (owner.value.TryGetComponent(out PlayerController controller))
-                    controller.stateMachine.ForceSetDefaultState();
-                f.Call(onEnd);
-            };
-
-            for (int i = 0; i < state.Events.Count; i++)
-            {
-                var currentEventName = state.Events.Names[i];
-                state.Events.SetCallback(i,(() =>
+                var state = animancer.Play(clipTransitionAsset.value);
+                state.Events.OnEnd = () =>
                 {
-                    eventName = currentEventName;
-                    f.Call(onEvent);
-                }));
+                    state.Events.OnEnd = null;
+                    if (owner.value.TryGetComponent(out PlayerController controller))
+                        controller.stateMachine.ForceSetDefaultState();
+                    f.Call(onEnd);
+                };
+    
+                for (int i = 0; i < state.Events.Count; i++)
+                {
+                    var currentEventName = state.Events.Names[i];
+                    state.Events.SetCallback(i,(() =>
+                    {
+                        eventName = currentEventName;
+                        f.Call(onEvent);
+                    }));
+                }
+            }
+            else
+            {
+                f.Break(this);
             }
         }
-        else
-        {
-            f.Break(this);
-        }
     }
+
 }

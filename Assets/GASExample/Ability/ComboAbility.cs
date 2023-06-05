@@ -1,5 +1,6 @@
 using Animancer;
 using Cysharp.Threading.Tasks;
+using FlowCanvas;
 using GameAbilitySystem;
 using GameAbilitySystem.Ability;
 using GASExample;
@@ -45,7 +46,7 @@ public class ComboAbility : BaseAbility
     }
     
     
-    public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner)
+    public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
     {
         var spec = new ComboAbilitySpec(this, owner)
         {

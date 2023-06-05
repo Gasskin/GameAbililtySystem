@@ -23,15 +23,13 @@ MonoBehaviour:
         _FadeDuration: 0.25
         _Events:
           _NormalizedTimes:
-          - 0.20696498
-          - 0.5244151
-          - 0.8034919
+          - 0.15327857
+          - 0.3837327
           - NaN
           _Callbacks: []
           _Names:
-          - one
-          - two
-          - three
+          - start
+          - point
         _Clip: {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
         _Speed: 1
         _NormalizedStartTime: NaN

@@ -31,22 +31,4 @@ MonoBehaviour:
   cost: {fileID: 11400000, guid: 3bb78e32b024d594486aacf67141c9a8, type: 2}
   canActiveWhenActive: 0
   endSelfWhenActiveInActive: 0
-  startEffect: {fileID: 11400000, guid: f69373bb02fa9e24fa23c80c5c837a54, type: 2}
-  hitPointEffect: {fileID: 11400000, guid: c827c3906506bee4a8ef0614dd042b8f, type: 2}
-  backSwingEffect: {fileID: 11400000, guid: 93e4c6d0216a40a4781d554c3f5a1adc, type: 2}
-  transition:
-    _FadeDuration: 0.25
-    _Events:
-      _NormalizedTimes:
-      - 0.15530768
-      - 0.208936
-      - 0.77703303
-      - NaN
-      _Callbacks: []
-      _Names:
-      - Start
-      - HitPoint
-      - BackSwing
-    _Clip: {fileID: 7400000, guid: ec19ec16ad668ac4faab4aaf05a386f1, type: 2}
-    _Speed: 1
-    _NormalizedStartTime: NaN
+  blueprint: {fileID: 11400000, guid: 286bd9d3ef9bd654aaa93d58eba3c2ce, type: 2}

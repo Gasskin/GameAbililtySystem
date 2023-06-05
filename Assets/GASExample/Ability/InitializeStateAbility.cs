@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using FlowCanvas;
 using GameAbilitySystem;
 using GameAbilitySystem.Ability;
 using Sirenix.OdinInspector;
@@ -11,7 +12,7 @@ namespace GASExample
     {
         [LabelText("初始化效果")] public GameEffect[] initialEffects;
 
-        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner)
+        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
         {
             var spec = new InitializeStateAbilitySpec(this, owner);
             spec.level = owner.level;

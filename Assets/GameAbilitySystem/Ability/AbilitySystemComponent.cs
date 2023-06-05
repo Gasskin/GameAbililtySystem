@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FlowCanvas;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -24,9 +25,11 @@ namespace GameAbilitySystem.Ability
 
         public readonly List<GameEffectContainer> appliedGameEffects = new();
         public Dictionary<BaseAbility, BaseAbilitySpec> grantedAbilities = new();
+        public Dictionary<BaseAbility, FlowScriptController> abilityBlueprints = new();
         public List<BaseAbilitySpec> currentAbilitySpecs = new();
         public float level;
 
+        private Transform abilityBlueprintRoot;
 #if UNITY_EDITOR
         [OnInspectorGUI]
         public void OnInspectorGUI()
@@ -47,11 +50,12 @@ namespace GameAbilitySystem.Ability
         }
 #endif
 
-        public GameEffectSpec MakeGameEffectSpec(GameEffect gameEffect, float level = 1f)
+    #region 生命周期
+        private void Awake()
         {
-            return GameEffectSpec.CreateNew(gameEffect, this, level);
+            abilityBlueprintRoot = new GameObject("_ability_blueprint_root").transform;
+            abilityBlueprintRoot.SetParent(transform, false);
         }
-
 
         private void Update()
         {
@@ -129,6 +133,13 @@ namespace GameAbilitySystem.Ability
             appliedGameEffects.RemoveAll(x =>
                 x.spec.gameEffect.durationPolicy != EDurationPolicy.Instant && x.spec.durationRemaining <= 0f);
         }
+    #endregion
+
+    #region 接口方法
+        public GameEffectSpec MakeGameEffectSpec(GameEffect gameEffect, float level = 1f)
+        {
+            return GameEffectSpec.CreateNew(gameEffect, this, level);
+        }
 
         public void ApplyGameEffectSpecToSelf(GameEffectSpec spec)
         {
@@ -149,66 +160,46 @@ namespace GameAbilitySystem.Ability
             }
         }
 
-        private void ApplyInstantGameEffect(GameEffectSpec spec)
+        public void AddAbility(BaseAbility baseAbility)
         {
-            foreach (var modifier in spec.gameEffect.modifiers)
+            if (!grantedAbilities.ContainsKey(baseAbility))
             {
-                if (attributeSystemComponent.TryGetAttributeValue(modifier.attribute, out var attributeValue))
-                {
-                    var value = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
-                    switch (modifier.modifierOperator)
-                    {
-                        case EModifierOperator.Add:
-                            attributeValue.baseValue += value;
-                            break;
-                        case EModifierOperator.Multiply:
-                            attributeValue.baseValue *= value;
-                            break;
-                        case EModifierOperator.Override:
-                            attributeValue.baseValue = value;
-                            break;
-                    }
+                var blueprint = new GameObject($"{baseAbility}");
+                var controller = blueprint.AddComponent<FlowScriptController>();
+                controller.graph = baseAbility.blueprint;
+                blueprint.transform.SetParent(abilityBlueprintRoot, false);
+                controller.StartBehaviour();
+                
+                grantedAbilities.Add(baseAbility, baseAbility.CreateSpec(this, controller));
+            }
+        }
 
-                    attributeSystemComponent.SetAttributeBaseValue(modifier.attribute, attributeValue.baseValue);
+        public void ActiveAbility(BaseAbility baseAbility)
+        {
+            if (grantedAbilities.TryGetValue(baseAbility, out var spec))
+            {
+                spec.TryActivateAbility();
+            }
+        }
+
+        public void CancelAbilityWithTags(GameTag[] gameTags)
+        {
+            if (gameTags == null || gameTags.Length <= 0)
+                return;
+
+            foreach (var abilitySpec in currentAbilitySpecs)
+            {
+                foreach (var gameTag in gameTags)
+                {
+                    if (abilitySpec.ability.assetTag && abilitySpec.ability.assetTag.IsDescendantOf(gameTag))
+                    {
+                        abilitySpec.EndAbility();
+                        break;
+                    }
                 }
             }
 
-
-            RemoveEffectsWithTags(spec.gameEffect.removeGameEffectsWithTag);
-            CleanGameEffects();
-        }
-
-        private void ApplyDurationGameEffect(GameEffectSpec spec)
-        {
-            // var modifierContainers = new List<ModifierContainer>();
-            // foreach (var modifier in spec.gameEffect.modifiers)
-            // {
-            //     var magnitude = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
-            //     var attributeModifier = new GameAttributeModifier();
-            //     switch (modifier.modifierOperator)
-            //     {
-            //         case EModifierOperator.Add:
-            //             attributeModifier.add = magnitude;
-            //             break;
-            //         case EModifierOperator.Multiply:
-            //             attributeModifier.multiply = magnitude;
-            //             break;
-            //         case EModifierOperator.Override:
-            //             attributeModifier.overwrite = magnitude;
-            //             break;
-            //     }
-            //     modifierContainers.Add(new ModifierContainer
-            //     {
-            //         attribute = modifier.attribute,
-            //         modifier = attributeModifier
-            //     });
-            // }
-            appliedGameEffects.Add(new GameEffectContainer
-            {
-                spec = spec,
-                // modifiers = modifierContainers.ToArray()
-                modifiers = new List<ModifierContainer>()
-            });
+            currentAbilitySpecs.RemoveAll(x => !x.isActive);
         }
 
 
@@ -259,6 +250,69 @@ namespace GameAbilitySystem.Ability
 
             return true;
         }
+    #endregion
+
+    #region 工具方法
+        private void ApplyInstantGameEffect(GameEffectSpec spec)
+        {
+            foreach (var modifier in spec.gameEffect.modifiers)
+            {
+                if (attributeSystemComponent.TryGetAttributeValue(modifier.attribute, out var attributeValue))
+                {
+                    var value = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
+                    switch (modifier.modifierOperator)
+                    {
+                        case EModifierOperator.Add:
+                            attributeValue.baseValue += value;
+                            break;
+                        case EModifierOperator.Multiply:
+                            attributeValue.baseValue *= value;
+                            break;
+                        case EModifierOperator.Override:
+                            attributeValue.baseValue = value;
+                            break;
+                    }
+
+                    attributeSystemComponent.SetAttributeBaseValue(modifier.attribute, attributeValue.baseValue);
+                }
+            }
+
+            RemoveEffectsWithTags(spec.gameEffect.removeGameEffectsWithTag);
+            CleanGameEffects();
+        }
+
+        private void ApplyDurationGameEffect(GameEffectSpec spec)
+        {
+            // var modifierContainers = new List<ModifierContainer>();
+            // foreach (var modifier in spec.gameEffect.modifiers)
+            // {
+            //     var magnitude = modifier.modifierMagnitude.CalculateMagnitude(spec) * modifier.multiplier;
+            //     var attributeModifier = new GameAttributeModifier();
+            //     switch (modifier.modifierOperator)
+            //     {
+            //         case EModifierOperator.Add:
+            //             attributeModifier.add = magnitude;
+            //             break;
+            //         case EModifierOperator.Multiply:
+            //             attributeModifier.multiply = magnitude;
+            //             break;
+            //         case EModifierOperator.Override:
+            //             attributeModifier.overwrite = magnitude;
+            //             break;
+            //     }
+            //     modifierContainers.Add(new ModifierContainer
+            //     {
+            //         attribute = modifier.attribute,
+            //         modifier = attributeModifier
+            //     });
+            // }
+            appliedGameEffects.Add(new GameEffectContainer
+            {
+                spec = spec,
+                // modifiers = modifierContainers.ToArray()
+                modifiers = new List<ModifierContainer>()
+            });
+        }
 
         private void RemoveEffectsWithTags(GameTag[] gameTags)
         {
@@ -277,41 +331,6 @@ namespace GameAbilitySystem.Ability
                 }
             }
         }
-
-        public void AddAbility(BaseAbility baseAbility)
-        {
-            if (!grantedAbilities.ContainsKey(baseAbility))
-            {
-                grantedAbilities.Add(baseAbility, baseAbility.CreateSpec(this));
-            }
-        }
-
-        public void ActiveAbility(BaseAbility baseAbility)
-        {
-            if (grantedAbilities.TryGetValue(baseAbility,out var spec))
-            {
-                spec.TryActivateAbility();
-            }
-        }
-
-        public void CancelAbilityWithTags(GameTag[] gameTags)
-        {
-            if (gameTags == null || gameTags.Length <= 0) 
-                return;
-            
-            foreach (var abilitySpec in currentAbilitySpecs)
-            {
-                foreach (var gameTag in gameTags)
-                {
-                    if (abilitySpec.ability.assetTag && abilitySpec.ability.assetTag.IsDescendantOf(gameTag)) 
-                    {
-                        abilitySpec.EndAbility();
-                        break;
-                    }
-                }
-            }
-
-            currentAbilitySpecs.RemoveAll(x => !x.isActive);
-        }
+    #endregion
     }
 }

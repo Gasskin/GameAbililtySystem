@@ -1301,8 +1301,6 @@ GameObject:
   - component: {fileID: 1054590202}
   - component: {fileID: 1054590204}
   - component: {fileID: 1054590203}
-  - component: {fileID: 1054590206}
-  - component: {fileID: 1054590205}
   m_Layer: 0
   m_Name: PlayerRoot
   m_TagString: Untagged
@@ -1406,55 +1404,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeSystemComponent: {fileID: 1054590203}
   level: 1
---- !u!114 &1054590205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054590199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parentBlackboard: {fileID: 0}
-  _serializedBlackboard: '{"_variables":{"myClipTransitionAsset_UnShared":{"_value":{},"_name":"myClipTransitionAsset_UnShared","_id":"5b49edda-c9b5-4fed-a0a9-b5c423c9bcb3","$type":"NodeCanvas.Framework.Variable`1[[Animancer.ClipTransitionAsset_UnShared,
-    Animancer, Version=7.4.2.25, Culture=neutral, PublicKeyToken=null]]"}}}'
-  _objectReferences: []
-  _serializedVariables:
-  - _json: '{"_value":{},"_name":"myClipTransitionAsset_UnShared","_id":"5b49edda-c9b5-4fed-a0a9-b5c423c9bcb3","$type":"NodeCanvas.Framework.Variable`1[[Animancer.ClipTransitionAsset_UnShared,
-      Animancer, Version=7.4.2.25, Culture=neutral, PublicKeyToken=null]]"}'
-    _references: []
---- !u!114 &1054590206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054590199}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b5c3ebb24c97464da319951cafe5a47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _serializedExposedParameters: []
-  _boundGraphSerialization: 
-  _boundGraphObjectReferences: []
-  _boundGraphSource:
-    _version: 0
-    _category: 
-    _comments: 
-    _translation: {x: 0, y: 0}
-    _zoomFactor: 1
-  _firstActivation: 0
-  _enableAction: 0
-  _disableAction: 0
-  _lockBoundGraphPrefabOverrides: 1
-  _preInitializeSubGraphs: 0
-  _updateMode: 0
-  _graph: {fileID: 11400000, guid: 286bd9d3ef9bd654aaa93d58eba3c2ce, type: 2}
-  _blackboard: {fileID: 1054590205}
 --- !u!1 &1156254314
 GameObject:
   m_ObjectHideFlags: 0

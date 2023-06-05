@@ -1,3 +1,4 @@
+using FlowCanvas;
 using FlowCanvas.Nodes;
 using ParadoxNotion.Design;
 using UnityEngine;
@@ -5,20 +6,17 @@ using UnityEngine;
 namespace GameAbilitySystem
 {
     [Category("GameAbilitySystem")]
-    public class EndAbility : FlowControlNode 
+    public class EndAbility : FlowControlNode
     {
+        private ValueInput<BaseAbilitySpec> spec;
+        
         protected override void RegisterPorts()
         {
-            AddValueInput<int>("Milliseconds");
+            spec = AddValueInput<BaseAbilitySpec>("AbilitySpec");
             
             AddFlowInput(" ", (f) =>
             {
-                Debug.LogError("结束啦");
-                var ownerGo = flowGraph.agent.gameObject;
-                if (ownerGo.TryGetComponent(out BlueprintNode node))
-                {
-                    BlueprintManager.Instance.StopBlueprint(node);
-                }
+                spec.value.EndAbility();
             });
         }
     }

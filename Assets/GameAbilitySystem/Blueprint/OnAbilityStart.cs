@@ -5,6 +5,7 @@ using NodeCanvas.Framework;
 using ParadoxNotion;
 using ParadoxNotion.Design;
 using ParadoxNotion.Services;
+using UnityEngine;
 
 namespace GameAbilitySystem
 {
@@ -12,12 +13,14 @@ namespace GameAbilitySystem
     public class OnAbilityStart : RouterEventNode<GraphOwner>
     {
         private FlowOutput onEnter;
-        private AbilitySystemComponent asc;
+        private BaseAbilitySpec spec;
+        private GameObject owner;
 
         protected override void RegisterPorts()
         {
             onEnter = AddFlowOutput(" ");
-            AddValueOutput("AbilitySystemComponent", () => asc);
+            AddValueOutput("AbilitySpec", () => spec);
+            AddValueOutput("Owner", () => owner);
         }
 
         protected override void Subscribe(EventRouter router)
@@ -32,7 +35,12 @@ namespace GameAbilitySystem
 
         private void OnAbilityStartAction(string eventName, IEventData data)
         {
-            onEnter.Call(new Flow());
+            if (data is EventData<BaseAbilitySpec> eventData)
+            {
+                owner = eventData.sender as GameObject;
+                spec = eventData.value;
+                onEnter.Call(new Flow());
+            }
         }
     }
 }

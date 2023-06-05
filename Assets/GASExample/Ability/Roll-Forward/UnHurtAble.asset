@@ -10,24 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
-  m_Name: RoleForward.Start
+  m_Name: UnHurtAble
   m_EditorClassIdentifier: 
   grantedTags:
-  - {fileID: 11400000, guid: 0980b3a920dcf0c4082607dc64e7e28f, type: 2}
-  - {fileID: 11400000, guid: e07133974f7982d43b62b117cd152499, type: 2}
+  - {fileID: 11400000, guid: aebd226f845185f4a8b727256f81ae6b, type: 2}
   removeGameEffectsWithTag: []
   onGoingTagRequirements:
     requireTags: []
     ignoreTags: []
   applicationTagRequirements:
     requireTags: []
-    ignoreTags: []
+    ignoreTags:
+    - {fileID: 11400000, guid: aebd226f845185f4a8b727256f81ae6b, type: 2}
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 1
-  period: 10000
-  executeImmediate: 1
-  durationMagnitude: {fileID: 0}
-  durationMultiplier: 0
-  modifiers: []
+  durationPolicy: 0
+  period: 1
+  executeImmediate: 0
+  durationMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
+  durationMultiplier: 0.1
+  modifiers:
+  - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
+    modifierOperator: 0
+    modifierMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
+    multiplier: 500

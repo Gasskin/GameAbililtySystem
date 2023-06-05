@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using FlowCanvas;
 using GameAbilitySystem;
 using GameAbilitySystem.Ability;
 using Sirenix.OdinInspector;
@@ -14,7 +15,7 @@ namespace GASExample
         [LabelText("子弹")]
         public Projectile projectile;
         
-        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner)
+        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
         {
             var spec = new ProjectileAbilitySpec(this, owner);
             spec.level = owner.level;
