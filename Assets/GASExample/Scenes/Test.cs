@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Animancer;
@@ -9,21 +10,31 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public FlowScript flowScript;
-    public AbilitySystemComponent asc;
+    public Vector3 pos = Vector3.zero;
+    public float radius = 10;
 
-    public ClipTransitionAsset.UnShared unShared;
-    
+
     void Start()
     {
-        BlueprintManager.Instance.StartBlueprint(flowScript);
+        // var target = RaycastUtil.SphereCast(new Vector3(0, 0, 0), 1, 1,LayerMask.NameToLayer("Default"));
+        // for (int i = 0; i < target.Count; i++)
+        // {
+        // Debug.LogError(target[i].gameObject.name);
+        // }
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetMouseButtonUp(1))
+        var target = RaycastUtil.SphereCast(pos, radius, 1, 1 << 7);
+        for (int i = 0; i < target.Count; i++)
         {
-            BlueprintManager.Instance.StartBlueprint(flowScript);
+            Debug.LogError(target[i].gameObject.name);
         }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(pos, radius);
     }
 }
