@@ -24,7 +24,6 @@ namespace GameAbilitySystem
     
             clipTransitionAsset = AddValueInput<ClipTransitionAsset>("clipTransitionAsset");
             owner = AddValueInput<GameObject>("owner");
-    
             AddFlowInput(" ", FlowIn);
             AddValueOutput("eventName", () => eventName);
         }
