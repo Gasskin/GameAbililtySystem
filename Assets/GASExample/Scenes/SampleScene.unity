@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bee55c615afcf479360f6a33c85ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: {x: 2.82, y: 0, z: 0}
+  pos: {x: 1.07, y: 0, z: 0}
   radius: 1
 --- !u!4 &393527215
 Transform:

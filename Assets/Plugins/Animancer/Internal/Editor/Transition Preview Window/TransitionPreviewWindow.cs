@@ -157,6 +157,9 @@ namespace Animancer.Editor
         [SerializeField] private Animations _Animations;
         [SerializeField] private Scene _Scene;
 
+        [SerializeField]
+        private Gizmos _Gzimos;
+
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
@@ -185,6 +188,8 @@ namespace Animancer.Editor
                 _Scene = new Scene();
             if (_Animations == null)
                 _Animations = new Animations();
+            if (_Gzimos == null)
+                _Gzimos = new Gizmos();
 
             if (_TransitionProperty.IsValid() &&
                 !CanBePreviewed(_TransitionProperty))
@@ -261,10 +266,13 @@ namespace Animancer.Editor
 #endif
 
             _Scene.OnGUI();
-
+            // _Gzimos.DrawGizmos();
+            Handles.DrawWireCube(new Vector3(0,0,0),new Vector3(1,1,1));
+            Handles.DrawWireDisc(new Vector3(0, 0, 0), Vector3.up, 100);
             Settings.ShowSkybox = sceneViewState.showSkybox;
             Settings.SceneLighting = sceneLighting;
         }
+        
 
         /************************************************************************************************************************/
 

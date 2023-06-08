@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Animancer;
+using Animancer.Editor;
 using FlowCanvas;
 using GameAbilitySystem;
 using GameAbilitySystem.Ability;
 using NodeCanvas.Framework;
+using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -25,16 +28,16 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        var target = RaycastUtil.SphereCast(pos, radius, 1, 1 << 7);
-        for (int i = 0; i < target.Count; i++)
-        {
-            Debug.LogError(target[i].gameObject.name);
-        }
+        // var target = RaycastUtil.SphereCast(pos, radius, 1, 1 << 7);
+        // for (int i = 0; i < target.Count; i++)
+        // {
+        //     Debug.LogError(target[i].gameObject.name);
+        // }
     }
 
-
+    
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(pos, radius);
+        // Gizmos.DrawSphere(pos, radius);
     }
 }
