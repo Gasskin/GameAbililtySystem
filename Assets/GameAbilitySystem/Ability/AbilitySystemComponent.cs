@@ -22,7 +22,7 @@ namespace GameAbilitySystem.Ability
     public class AbilitySystemComponent : MonoBehaviour
     {
         public AttributeSystemComponent attributeSystemComponent;
-
+        
         public readonly List<GameEffectContainer> appliedGameEffects = new();
         public Dictionary<BaseAbility, BaseAbilitySpec> grantedAbilities = new();
         public Dictionary<BaseAbility, FlowScriptController> abilityBlueprints = new();

@@ -19,6 +19,8 @@ public class Test : MonoBehaviour
 
     void Start()
     {
+        var a = LayerMask.NameToLayer("Default");
+        Debug.LogError(a);
         // var target = RaycastUtil.SphereCast(new Vector3(0, 0, 0), 1, 1,LayerMask.NameToLayer("Default"));
         // for (int i = 0; i < target.Count; i++)
         // {
@@ -28,16 +30,16 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        // var target = RaycastUtil.SphereCast(pos, radius, 1, 1 << 7);
-        // for (int i = 0; i < target.Count; i++)
-        // {
-        //     Debug.LogError(target[i].gameObject.name);
-        // }
+        var target = RaycastUtil.SphereCast(pos, radius, 1, "Role");
+        for (int i = 0; i < target.Count; i++)
+        {
+            Debug.LogError(target[i].gameObject.name);
+        }
     }
 
     
     private void OnDrawGizmos()
     {
-        // Gizmos.DrawSphere(pos, radius);
+        Gizmos.DrawSphere(pos, radius);
     }
 }

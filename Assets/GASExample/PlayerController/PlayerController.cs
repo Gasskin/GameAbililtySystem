@@ -13,7 +13,6 @@ namespace GASExample
         public PlayerState idle;
         public PlayerState run;
         public PlayerState attack;
-        public PlayerState ability;
         
         public AnimancerComponent animancer;
         public AbilitySystemComponent asc;
@@ -74,16 +73,6 @@ namespace GASExample
         public void EnterAttack()
         {
             stateMachine.TryResetState(attack);
-        }
-        
-        public void PrepareAbility(BaseAbilitySpec spec)
-        {
-            ability.PrepareState(spec);
-        }
-        
-        public void EnterAbility()
-        {
-            stateMachine.TryResetState(ability);
         }
     }
 }

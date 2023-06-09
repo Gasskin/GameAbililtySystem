@@ -20,10 +20,17 @@ namespace GameAbilitySystem
 
         private static readonly List<AbilitySystemComponent> target = new();
 
-        public static List<AbilitySystemComponent> SphereCast(Vector3 pos, float radius, int count = 1, int layMask = 0)
+        public static List<AbilitySystemComponent> SphereCast(Vector3 pos, float radius, int count = 1,
+            string layerName = "Default")
         {
+#if UNITY_EDITOR
+            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            go.transform.position = pos;
+            go.transform.localScale = new Vector3(radius, radius, radius);
+            // Object.Destroy(go, 0.1f);
+#endif
             var results = GetPreferredResultContainer(count);
-            var size = Physics.OverlapSphereNonAlloc(pos, radius, results, layMask);
+            var size = Physics.OverlapSphereNonAlloc(pos, radius, results, 1 << LayerMask.NameToLayer(layerName));
             target.Clear();
             for (int i = 0; i < size; i++)
             {
@@ -32,6 +39,7 @@ namespace GameAbilitySystem
                     target.Add(comp);
                 }
             }
+
             return target;
         }
 
