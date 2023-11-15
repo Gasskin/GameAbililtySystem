@@ -24,9 +24,9 @@ namespace GameAbilitySystem.Ability
         public AttributeSystemComponent attributeSystemComponent;
         
         public readonly List<GameEffectContainer> appliedGameEffects = new();
-        public Dictionary<BaseAbility, BaseAbilitySpec> grantedAbilities = new();
-        public Dictionary<BaseAbility, FlowScriptController> abilityBlueprints = new();
-        public List<BaseAbilitySpec> currentAbilitySpecs = new();
+        public Dictionary<GameAbility, GameAbilitySpec> grantedAbilities = new();
+        public Dictionary<GameAbility, FlowScriptController> abilityBlueprints = new();
+        public List<GameAbilitySpec> currentAbilitySpecs = new();
         public float level;
 
         private Transform abilityBlueprintRoot;
@@ -160,23 +160,23 @@ namespace GameAbilitySystem.Ability
             }
         }
 
-        public void AddAbility(BaseAbility baseAbility)
+        public void AddAbility(GameAbility gameAbility)
         {
-            if (!grantedAbilities.ContainsKey(baseAbility))
+            if (!grantedAbilities.ContainsKey(gameAbility))
             {
-                var blueprint = new GameObject($"{baseAbility}");
+                var blueprint = new GameObject($"{gameAbility}");
                 var controller = blueprint.AddComponent<FlowScriptController>();
-                controller.graph = baseAbility.blueprint;
+                controller.graph = gameAbility.blueprint;
                 blueprint.transform.SetParent(abilityBlueprintRoot, false);
                 controller.StartBehaviour();
                 
-                grantedAbilities.Add(baseAbility, baseAbility.CreateSpec(this, controller));
+                grantedAbilities.Add(gameAbility, gameAbility.CreateSpec(this, controller));
             }
         }
 
-        public void ActiveAbility(BaseAbility baseAbility)
+        public void ActiveAbility(GameAbility gameAbility)
         {
-            if (grantedAbilities.TryGetValue(baseAbility, out var spec))
+            if (grantedAbilities.TryGetValue(gameAbility, out var spec))
             {
                 spec.TryActivateAbility();
             }

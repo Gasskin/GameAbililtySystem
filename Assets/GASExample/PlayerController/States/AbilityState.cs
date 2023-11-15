@@ -14,7 +14,7 @@ namespace GASExample
             controller.animancer.Play(transition);
         }
 
-        public override void PrepareState(BaseAbilitySpec spec)
+        public override void PrepareState(GameAbilitySpec spec)
         {
             // if (spec is SimpleAbility.SimpleAbilitySpec simpleAbilitySpec)
             // {

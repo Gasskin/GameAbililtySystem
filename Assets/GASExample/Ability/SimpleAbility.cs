@@ -12,22 +12,22 @@ using UnityEngine;
 namespace GASExample
 {
     [CreateAssetMenu(menuName = "GASExample/Ability/Simple Ability")]
-    public class SimpleAbility : BaseAbility
+    public class SimpleAbility : GameAbility
     {
-        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,
+        public override GameAbilitySpec CreateSpec(AbilitySystemComponent owner,
             FlowScriptController blueprintController)
         {
             var spec = new SimpleAbilitySpec(this, owner, blueprintController);
             return spec;
         }
 
-        public class SimpleAbilitySpec : BaseAbilitySpec
+        public class SimpleAbilitySpec : GameAbilitySpec
         {
             private readonly FlowScriptController blueprintController;
             private readonly PlayerController controller;
             private readonly SimpleAbility simpleAbility;
 
-            public SimpleAbilitySpec(BaseAbility ability, AbilitySystemComponent owner,
+            public SimpleAbilitySpec(GameAbility ability, AbilitySystemComponent owner,
                 FlowScriptController blueprintController) : base(ability, owner)
             {
                 simpleAbility = ability as SimpleAbility;
@@ -61,7 +61,7 @@ namespace GASExample
                     owner.ApplyGameEffectSpecToSelf(costSpec);
                 }
 
-                blueprintController.SendEvent("OnAbilityStart", (BaseAbilitySpec)this, owner.GameObject());
+                blueprintController.SendEvent("OnAbilityStart", (GameAbilitySpec)this, owner.GameObject());
             }
 
             public override void EndAbility()

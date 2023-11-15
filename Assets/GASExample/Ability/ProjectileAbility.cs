@@ -8,14 +8,14 @@ using UnityEngine;
 namespace GASExample
 {
     [CreateAssetMenu(menuName = "GASExample/Ability/Projectile Ability")]
-    public class ProjectileAbility : BaseAbility
+    public class ProjectileAbility : GameAbility
     {
         [LabelText("游戏效果")]
         public GameEffect gameEffect;
         [LabelText("子弹")]
         public Projectile projectile;
         
-        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
+        public override GameAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
         {
             var spec = new ProjectileAbilitySpec(this, owner);
             spec.level = owner.level;
@@ -24,12 +24,12 @@ namespace GASExample
             return spec;
         }
         
-        public class ProjectileAbilitySpec : BaseAbilitySpec
+        public class ProjectileAbilitySpec : GameAbilitySpec
         {
             public Projectile projectile;
             public CastPointComponent castPointComponent;
 
-            public ProjectileAbilitySpec(BaseAbility ability, AbilitySystemComponent owner) : base(ability, owner)
+            public ProjectileAbilitySpec(GameAbility ability, AbilitySystemComponent owner) : base(ability, owner)
             {
             }
 

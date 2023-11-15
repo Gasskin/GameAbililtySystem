@@ -13,7 +13,7 @@ namespace GameAbilitySystem
     public class OnAbilityStart : RouterEventNode<GraphOwner>
     {
         private FlowOutput onEnter;
-        private BaseAbilitySpec spec;
+        private GameAbilitySpec spec;
         private GameObject owner;
 
         protected override void RegisterPorts()
@@ -35,7 +35,7 @@ namespace GameAbilitySystem
 
         private void OnAbilityStartAction(string eventName, IEventData data)
         {
-            if (data is EventData<BaseAbilitySpec> eventData)
+            if (data is EventData<GameAbilitySpec> eventData)
             {
                 owner = eventData.sender as GameObject;
                 spec = eventData.value;

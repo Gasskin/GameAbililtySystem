@@ -8,20 +8,20 @@ using UnityEngine;
 namespace GASExample
 {
     [CreateAssetMenu(menuName = "GASExample/Ability/Initialize State Ability")]
-    public class InitializeStateAbility : BaseAbility
+    public class InitializeStateAbility : GameAbility
     {
         [LabelText("初始化效果")] public GameEffect[] initialEffects;
 
-        public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
+        public override GameAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
         {
             var spec = new InitializeStateAbilitySpec(this, owner);
             spec.level = owner.level;
             return spec;
         }
 
-        public class InitializeStateAbilitySpec : BaseAbilitySpec
+        public class InitializeStateAbilitySpec : GameAbilitySpec
         {
-            public InitializeStateAbilitySpec(BaseAbility ability, AbilitySystemComponent owner) : base(ability, owner)
+            public InitializeStateAbilitySpec(GameAbility ability, AbilitySystemComponent owner) : base(ability, owner)
             {
             }
 

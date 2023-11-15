@@ -19,9 +19,9 @@ namespace GASExample
         
         public readonly PlayerInput input = new();
 
-        public BaseAbility attackAbility;
-        public BaseAbility initAbility;
-        public BaseAbility rollAbility;
+        public GameAbility attackAbility;
+        public GameAbility initAbility;
+        public GameAbility rollAbility;
 
         // private BaseAbilitySpec attackSpec;
         
@@ -65,7 +65,7 @@ namespace GASExample
             }
         }
 
-        public void PrepareAttack(BaseAbilitySpec spec)
+        public void PrepareAttack(GameAbilitySpec spec)
         {
             attack.PrepareState(spec);
         }

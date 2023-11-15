@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameAbilitySystem
 {
-    public abstract class BaseAbility : ScriptableObject
+    public abstract class GameAbility : ScriptableObject
     {
         [LabelText("技能名称")]
         [LabelWidth(50)]
@@ -61,7 +61,7 @@ namespace GameAbilitySystem
         [LabelText("技能蓝图")]
         public FlowScript blueprint;
 
-        public abstract BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,
+        public abstract GameAbilitySpec CreateSpec(AbilitySystemComponent owner,
             FlowScriptController blueprintController);
     }
 }

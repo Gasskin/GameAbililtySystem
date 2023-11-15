@@ -9,9 +9,9 @@ namespace GameAbilitySystem
         public float totalDuration;
     }
 
-    public abstract class BaseAbilitySpec
+    public abstract class GameAbilitySpec
     {
-        public BaseAbility ability;
+        public GameAbility ability;
 
         public AbilitySystemComponent owner;
 
@@ -19,7 +19,7 @@ namespace GameAbilitySystem
 
         public bool isActive;
 
-        public BaseAbilitySpec(BaseAbility ability, AbilitySystemComponent owner)
+        public GameAbilitySpec(GameAbility ability, AbilitySystemComponent owner)
         {
             this.ability = ability;
             this.owner = owner;

@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "GASExample/Ability/Combo Ability")]
-public class ComboAbility : BaseAbility
+public class ComboAbility : GameAbility
 {
     [LabelText("前摇效果")]
     public GameEffect startEffect;
@@ -46,7 +46,7 @@ public class ComboAbility : BaseAbility
     }
     
     
-    public override BaseAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
+    public override GameAbilitySpec CreateSpec(AbilitySystemComponent owner,FlowScriptController blueprintController)
     {
         var spec = new ComboAbilitySpec(this, owner)
         {
@@ -56,7 +56,7 @@ public class ComboAbility : BaseAbility
         return spec;
     }
 
-    public class ComboAbilitySpec : BaseAbilitySpec
+    public class ComboAbilitySpec : GameAbilitySpec
     {
         public ClipTransition transition;
         public PlayerController controller;
@@ -64,7 +64,7 @@ public class ComboAbility : BaseAbility
         public float speedValue;
         private ComboAbility comboAbility;
         
-        public ComboAbilitySpec(BaseAbility ability, AbilitySystemComponent owner) : base(ability, owner)
+        public ComboAbilitySpec(GameAbility ability, AbilitySystemComponent owner) : base(ability, owner)
         {
             comboAbility = ability as ComboAbility;
             controller = owner.GetComponent<PlayerController>();

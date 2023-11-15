@@ -8,11 +8,11 @@ namespace GameAbilitySystem
     [Category("GameAbilitySystem")]
     public class EndAbility : FlowControlNode
     {
-        private ValueInput<BaseAbilitySpec> spec;
+        private ValueInput<GameAbilitySpec> spec;
         
         protected override void RegisterPorts()
         {
-            spec = AddValueInput<BaseAbilitySpec>("AbilitySpec");
+            spec = AddValueInput<GameAbilitySpec>("AbilitySpec");
             
             AddFlowInput(" ", (f) =>
             {

@@ -40,7 +40,7 @@ namespace GASExample
             }
         }
 
-        public virtual void PrepareState(BaseAbilitySpec spec)
+        public virtual void PrepareState(GameAbilitySpec spec)
         {
             
         }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UpdateCD : MonoBehaviour
 {
     public Image bg;
-    public BaseAbility ability;
+    public GameAbility ability;
     public AbilitySystemComponent asc;
 
     void Update()
