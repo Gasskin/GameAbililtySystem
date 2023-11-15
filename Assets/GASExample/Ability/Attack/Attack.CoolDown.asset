@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a01145ca4a40119b1b2750af7a8efd, type: 3}
-  m_Name: Attack.BackSwing
+  m_Name: Attack.CoolDown
   m_EditorClassIdentifier: 
   grantedTags:
   - {fileID: 0}

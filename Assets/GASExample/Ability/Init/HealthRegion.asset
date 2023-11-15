@@ -23,11 +23,11 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 1
+  durationPolicy: 2
   period: 1
-  executeImmediate: 0
-  durationMagnitude: {fileID: 0}
-  durationMultiplier: 0
+  executeImmediate: 1
+  durationMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
+  durationMultiplier: 1
   modifiers:
   - attribute: {fileID: 11400000, guid: 22ac60a427cf7a54b8e9ce2b5268a970, type: 2}
     modifierOperator: 0

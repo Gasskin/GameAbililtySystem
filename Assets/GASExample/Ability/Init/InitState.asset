@@ -27,6 +27,9 @@ MonoBehaviour:
     ignoreTags: []
   coolDown: {fileID: 0}
   cost: {fileID: 0}
+  canActiveWhenActive: 0
+  endSelfWhenActiveInActive: 0
+  blueprint: {fileID: 0}
   initialEffects:
   - {fileID: 11400000, guid: bf4b5e7ec1360f64283b0369e396e796, type: 2}
   - {fileID: 11400000, guid: 912f11fe8862bfe428fbfc11023a5cd6, type: 2}

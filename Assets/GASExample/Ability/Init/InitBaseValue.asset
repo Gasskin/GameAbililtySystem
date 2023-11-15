@@ -23,7 +23,7 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 0
+  durationPolicy: 1
   period: 0
   executeImmediate: 0
   durationMagnitude: {fileID: 0}

@@ -2374,6 +2374,6 @@ MonoBehaviour:
   attack: {fileID: 509761970}
   animancer: {fileID: 2306501171921691395}
   asc: {fileID: 2306501171921691394}
-  attackAbility: {fileID: 11400000, guid: 49eb1288bfe233549b349320c957bc75, type: 2}
+  attackAbility: {fileID: 11400000, guid: 7fe7a69c78370ae45960386feab0263c, type: 2}
   initAbility: {fileID: 11400000, guid: eb3092ecc320328469685226d30824a3, type: 2}
   rollAbility: {fileID: 11400000, guid: bdc4194103581f049b413d04b4d7fdc6, type: 2}

@@ -29,4 +29,4 @@ MonoBehaviour:
   cost: {fileID: 0}
   canActiveWhenActive: 0
   endSelfWhenActiveInActive: 0
-  blueprint: {fileID: 0}
+  blueprint: {fileID: 11400000, guid: f118949b365a3c04fa37a2a1ab2f4488, type: 2}
