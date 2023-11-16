@@ -18,14 +18,15 @@ MonoBehaviour:
   activationOwnedTags: []
   ownerTags:
     requireTags: []
-    ignoreTags: []
+    ignoreTags:
+    - {fileID: 11400000, guid: 23e320e1c3f4d1143802a5ab90e39f3f, type: 2}
   sourceTags:
     requireTags: []
     ignoreTags: []
   targetTags:
     requireTags: []
     ignoreTags: []
-  coolDown: {fileID: 0}
+  coolDown: {fileID: 11400000, guid: d14fb898082727b4a8c7f703144466e5, type: 2}
   cost: {fileID: 0}
   canActiveWhenActive: 0
   endSelfWhenActiveInActive: 0

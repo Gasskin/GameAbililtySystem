@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Attack.CoolDown
   m_EditorClassIdentifier: 
   grantedTags:
-  - {fileID: 0}
-  removeGameEffectsWithTag:
-  - {fileID: 11400000, guid: bc765ccb35ba6094ca0dd530afbb7649, type: 2}
+  - {fileID: 11400000, guid: 23e320e1c3f4d1143802a5ab90e39f3f, type: 2}
+  removeGameEffectsWithTag: []
   onGoingTagRequirements:
     requireTags: []
     ignoreTags: []
@@ -25,9 +24,9 @@ MonoBehaviour:
   removalTagRequirements:
     requireTags: []
     ignoreTags: []
-  durationPolicy: 0
+  durationPolicy: 2
   period: 10000
   executeImmediate: 1
-  durationMagnitude: {fileID: 0}
-  durationMultiplier: 0
+  durationMagnitude: {fileID: 11400000, guid: c15ea91036729ab4a9bf4620e70d59f1, type: 2}
+  durationMultiplier: 5
   modifiers: []

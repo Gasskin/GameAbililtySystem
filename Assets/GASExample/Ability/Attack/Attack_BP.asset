@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d31b62ec9d586a4e94389d9071559ca, type: 3}
   m_Name: Attack_BP
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"type":"FlowCanvas.FlowScript","nodes":[{"target":{},"targets":{},"_position":{"x":186.0,"y":281.6667},"$type":"GameAbilitySystem.OnAbilityStart","$id":"0"},{"_method":{"_baseInfo":"UnityEngine.GameObject|GetComponent|UnityEngine.Component","_paramsInfo":"System.Type"},"_position":{"x":485.0,"y":520.6667},"$type":"FlowCanvas.Nodes.ReflectedMethodNodeWrapper","$id":"1"}],"connections":[{"_sourcePortName":"Owner","_targetPortName":"GameObject","_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"FlowCanvas.BinderConnection`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"canvasGroups":[],"localBlackboard":{"_variables":{"myGameEffect":{"_value":1,"_name":"myGameEffect","_id":"6865be24-7b83-4a10-9a57-7fdffeda1699","$type":"NodeCanvas.Framework.Variable`1[[GameAbilitySystem.GameEffect,
+  _serializedGraph: '{"type":"FlowCanvas.FlowScript","nodes":[{"target":{},"targets":{},"_position":{"x":407.0,"y":235.6667},"$type":"GameAbilitySystem.OnAbilityStart","$id":"0"},{"_simplexNode":{},"_position":{"x":351.0,"y":480.6667},"$type":"FlowCanvas.Nodes.SimplexNodeWrapper`1[[FlowCanvas.Nodes.GetComponent`1[[GameAbilitySystem.Ability.AbilitySystemComponent,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], ParadoxNotion,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","$id":"1"},{"_method":{"_baseInfo":"GameAbilitySystem.Ability.AbilitySystemComponent|MakeGameEffectSpec|GameAbilitySystem.GameEffectSpec","_paramsInfo":"GameAbilitySystem.GameEffect|System.Single"},"_inputPortValues":{"level":{"$content":1.0,"$type":"System.Single"}},"_position":{"x":727.0,"y":516.6666},"$type":"FlowCanvas.Nodes.ReflectedMethodNodeWrapper","$id":"2"},{"_method":{"_baseInfo":"GameAbilitySystem.Ability.AbilitySystemComponent|ApplyGameEffectSpecToSelf|System.Void","_paramsInfo":"GameAbilitySystem.GameEffectSpec"},"_callable":true,"_position":{"x":1265.0,"y":233.6667},"$type":"FlowCanvas.Nodes.ReflectedMethodNodeWrapper","$id":"3"},{"_method":{"_baseInfo":"UnityEngine.Component|get_gameObject|UnityEngine.GameObject","_paramsInfo":""},"_position":{"x":781.0,"y":391.6667},"$type":"FlowCanvas.Nodes.ReflectedMethodNodeWrapper","$id":"4"},{"_simplexNode":{},"_position":{"x":787.0,"y":310.6666},"$type":"FlowCanvas.Nodes.SimplexNodeWrapper`1[[FlowCanvas.Nodes.GetComponent`1[[GameAbilitySystem.Ability.AbilitySystemComponent,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], ParadoxNotion,
+    Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","$id":"5"},{"value":{"_name":"attack","_targetVariableID":"6865be24-7b83-4a10-9a57-7fdffeda1699"},"_verboseLevel":1,"_position":{"x":323.0,"y":610.6666},"$type":"FlowCanvas.Nodes.GetVariable`1[[GameAbilitySystem.GameEffect,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]","$id":"6"}],"connections":[{"_sourcePortName":"Owner","_targetPortName":"gameObject","_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"FlowCanvas.BinderConnection`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"_sourcePortName":"
+    ","_targetPortName":" ","_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"3"},"$type":"FlowCanvas.BinderConnection"},{"_sourcePortName":"Value","_targetPortName":"AbilitySystemComponent","_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"FlowCanvas.BinderConnection`1[[GameAbilitySystem.Ability.AbilitySystemComponent,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"_sourcePortName":"Value","_targetPortName":"spec","_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"3"},"$type":"FlowCanvas.BinderConnection`1[[GameAbilitySystem.GameEffectSpec,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"_sourcePortName":"Value","_targetPortName":"gameObject","_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"5"},"$type":"FlowCanvas.BinderConnection`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"_sourcePortName":"Value","_targetPortName":"AbilitySystemComponent","_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"3"},"$type":"FlowCanvas.BinderConnection`1[[GameAbilitySystem.Ability.AbilitySystemComponent,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},{"_sourcePortName":"Value","_targetPortName":"gameEffect","_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"2"},"$type":"FlowCanvas.BinderConnection`1[[GameAbilitySystem.GameEffect,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}],"canvasGroups":[],"localBlackboard":{"_variables":{"attack":{"_value":1,"_name":"attack","_id":"6865be24-7b83-4a10-9a57-7fdffeda1699","$type":"NodeCanvas.Framework.Variable`1[[GameAbilitySystem.GameEffect,
     Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}}'
   _objectReferences:
   - {fileID: 0}
@@ -22,6 +33,6 @@ MonoBehaviour:
     _version: 3.25
     _category: 
     _comments: 
-    _translation: {x: 0, y: 0}
+    _translation: {x: -94, y: -22}
     _zoomFactor: 1
   _haltSerialization: 0
